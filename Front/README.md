@@ -1,6 +1,6 @@
-# salones
+# Front
 
-> Salones para seneca.io
+> Front para seneca.io
 
 ## Build Setup
 
