@@ -1,9 +1,6 @@
 <template>
   <div>
     <SidebarPA/>
-    <Materia/>
-    <Espacio/>
-    <Espacio/>
     <div class = "content">
       <ul>
         <li v-for='(salon, index) of salones' :key='index'>
@@ -47,7 +44,6 @@ export default {
     fetch('https://sobrecupo-salones.herokuapp.com/biblioteca', {
       method: 'GET'
     }).then(res => res.text()).then(json => {
-      console.log(json.replace(/'/g, '"'))
       const parsed = JSON.parse(json.replace(/'/g, '"'))
       _this.salones = parsed
     })

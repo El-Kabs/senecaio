@@ -1,7 +1,6 @@
 <template>
     <vs-sidebar position-right :reduce="reduce" :reduce-not-hover-expand="notExpand" :hidden-background="hbackground" parent="body" default-index="1" color="primary" class="sidebarx" spacer v-model="active">
         <vs-sidebar-group vs-icon="search" title="Buscar" class="sidebar-group">
-            <Materia/>
             <vs-input vs-icon="search" placeholder="Buscar" v-model="search" class="searchinput" />
         </vs-sidebar-group>
     </vs-sidebar>
@@ -21,11 +20,24 @@ export default {
       hbackground: true,
       reduce: true,
       notExpand: false,
-      colore: '#fcdd00'
+      colore: '#fcdd00',
+      materias: ""
     };
   },
-  mounted: function (){
-      
+  mounted: function() {
+    const _this = this;
+    fetch(
+      "https://raw.githubusercontent.com/El-Kabs/pensumapp2/master/scrap/merge.json",
+      {
+        method: "GET"
+      }
+    )
+      .then(res => res.text())
+      .then(json => {
+        console.log(json.replace(/'/g, '"'));
+        const parsed = JSON.parse(json.replace(/'/g, '"'));
+        _this.materias = parsed;
+      });
   }
 }
 </script>
