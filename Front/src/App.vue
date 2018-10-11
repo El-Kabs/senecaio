@@ -1,11 +1,16 @@
 <template>
-  <div id="app">
+  <div id="app"> 
+    <Sidebar/>
     <router-view/>
   </div>
 </template>
 
 <script>
+import Sidebar from "@/components/Base/Sidebar";
 export default {
+  components: {
+    Sidebar,
+  },
   name: 'App',
   mounted: function(){
     this.$vs.theme({
@@ -20,7 +25,7 @@ html {
     height: 100%;
 }
 #app {
-  font-family: Helvetica, Arial, sans-serif;
+  font-family: 'Muli', sans-serif;
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
   text-align: center;

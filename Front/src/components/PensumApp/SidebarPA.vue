@@ -1,36 +1,43 @@
 <template>
-  <vs-sidebar :reduce="reduce" :reduce-not-hover-expand="notExpand" :hidden-background="hbackground" parent="body" default-index="1" color="primary" class="sidebarx" spacer v-model="active">
-    <vs-sidebar-item index="1" icon="group" class="itemSidebar">
-         Sobrecupo
-    </vs-sidebar-item>
-    <vs-sidebar-item index="2" icon="today" class="itemSidebar">
-         Academical
-    </vs-sidebar-item>
-    <vs-sidebar-item index="3" icon="school" class="itemSidebar">
-         PensumApp
-    </vs-sidebar-item>
-  </vs-sidebar>
+    <vs-sidebar position-right :reduce="reduce" :reduce-not-hover-expand="notExpand" :hidden-background="hbackground" parent="body" default-index="1" color="primary" class="sidebarx" spacer v-model="active">
+        <vs-sidebar-group vs-icon="search" title="Buscar" class="sidebar-group">
+            <Materia/>
+            <vs-input vs-icon="search" placeholder="Buscar" v-model="search" class="searchinput" />
+        </vs-sidebar-group>
+    </vs-sidebar>
 </template>
 
 <script>
+import Materia from "@/components/PensumApp/Base/Materia"
 export default {
-  name: "Sidebar",
+  name: "SidebarPA",
+  components: {
+    Materia,
+  },
   data() {
     return {
+      search: '',
       active: true,
       hbackground: true,
       reduce: true,
       notExpand: false,
       colore: '#fcdd00'
     };
+  },
+  mounted: function (){
+      
   }
-};
+}
 </script>
 
 <style scoped>
-
-@import url('https://fonts.googleapis.com/css?family=Muli');
-
+.sidebar-group{
+    font-family: 'Muli', sans-serif;
+}
+.searchinput{
+    margin: 0 auto;
+    font-family: 'Muli', sans-serif;
+}
 .itemSidebar{
   font-family: 'Muli', sans-serif;
 }

@@ -1,6 +1,9 @@
 <template>
   <div>
-    <Sidebar/>
+    <SidebarPA/>
+    <Materia/>
+    <Espacio/>
+    <Espacio/>
     <div class = "content">
       <ul>
         <li v-for='(salon, index) of salones' :key='index'>
@@ -15,17 +18,29 @@
 <script>
 import Sidebar from "@/components/Base/Sidebar";
 import Navbar from "@/components/Base/Navbar";
+import SidebarPA from "@/components/PensumApp/SidebarPA"
+import Espacio from "@/components/PensumApp/Base/Espacio"
+import Materia from "@/components/PensumApp/Base/Materia"
 export default {
   name: 'HelloWorld',
   components: {
     Sidebar,
-    Navbar
+    Navbar,
+    SidebarPA,
+    Espacio,
+    Materia
   },
   data () {
     return {
       msg: 'Welcome to Your Vue.js App',
-      salones: ""
+      salones: "",
+      draggable: 'Drag Me'
     }
+  },
+  methods: {
+    handleDrop(data, event) {
+      alert(`You dropped with data: ${JSON.stringify(data)}`);
+    },
   },
   mounted: function () {
     const _this = this
