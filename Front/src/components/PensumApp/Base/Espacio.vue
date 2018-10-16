@@ -4,7 +4,6 @@
 
 <script>
 export default {
-    name: "Espacio",
     methods: {
     handleDrop(data, event) {
       this.$root.$emit('materia', data);
@@ -14,9 +13,10 @@ export default {
 </script>
 
 <style scoped>
+@import url('https://fonts.googleapis.com/css?family=Nunito');
 .drag,
 .drop {
-  font-family: "Muli", sans-serif;
+  font-family: 'Nunito', sans-serif;
   display: inline-block;
   border-radius: 10px;
   background: #ccc;

@@ -18,11 +18,11 @@ export default {
     styling: function() {
       const _this = this;
       var colors = [
-        "#93DFCB",
-        "#A8EAC0",
-        "#CAEFC4",
-        "#E9F5CA",
-        "#F6FFCA",
+        "#305473",
+        "#F2F2F2",
+        "#F2E963",
+        "#F2B544",
+        "#F2A03D",
         "#EA9674",
         "#FCBC80",
         "#F7E29C",
@@ -46,8 +46,9 @@ export default {
 </script>
 
 <style scoped>
+@import url('https://fonts.googleapis.com/css?family=Nunito');
 .texto {
-  font-family: "Muli", sans-serif;
+  font-family: 'Nunito', sans-serif;
   font-size: 14px;
 }
 .drag,

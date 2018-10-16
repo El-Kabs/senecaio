@@ -72,14 +72,14 @@ export default {
 <style scoped>
 .sidebar-group {
   align-items: center;
-  font-family: "Muli", sans-serif;
+  font-family: 'Nunito', sans-serif;
 }
 .searchinput {
   margin: 0 auto;
-  font-family: "Muli", sans-serif;
+  font-family: 'Nunito', sans-serif;
 }
 .itemSidebar {
-  font-family: "Muli", sans-serif;
+  font-family: 'Nunito', sans-serif;
 }
 .header-sidebar {
   display: flex;

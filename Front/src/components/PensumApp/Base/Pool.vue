@@ -14,8 +14,9 @@
 </template>
 
 <script>
-import Espacio from "@/Components/PensumApp/Base/Espacio";
+import Espacio from "@/components/PensumApp/Base/Espacio";
 import Materia from "@/components/PensumApp/Base/Materia";
+
 export default {
   name: "Pool",
   components: {
@@ -46,7 +47,7 @@ export default {
 <style scoped>
 .drag,
 .drop {
-  font-family: "Muli", sans-serif!important;
+  font-family: 'Nunito', sans-serif !important;
   border-radius: 10px!important;
   position: relative!important;
   padding-top: 65px !important;
