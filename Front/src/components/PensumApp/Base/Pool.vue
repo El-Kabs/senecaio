@@ -31,14 +31,23 @@ export default {
       creditos: 0
     };
   },
-  mounted:function() {
-    const _this = this
-    this.$root.$on('materia', function(data){
-      var temp = _this.materias
-      _this.creditos = parseInt(_this.creditos) + parseInt(data.datos.credits);
-      temp.push(data.datos);
-      _this.materias =  temp;
-      console.log(_this.materias)
+  mounted: function() {
+    const _this = this;
+    this.$root.$on("materia", function(data) {
+      var temp = _this.materias;
+      var bool = false;
+      var i;
+      for (i = 0; i < temp.length; i++) {
+        if (temp[i].title === data.datos.title) {
+          bool = true;
+        }
+      }
+      if (bool === false) {
+        _this.creditos =
+          parseInt(_this.creditos) + parseInt(data.datos.credits);
+        temp.push(data.datos);
+        _this.materias = temp;
+      }
     });
   }
 };
@@ -47,23 +56,23 @@ export default {
 <style scoped>
 .drag,
 .drop {
-  font-family: 'Nunito', sans-serif !important;
-  border-radius: 10px!important;
-  position: relative!important;
+  font-family: "Nunito", sans-serif !important;
+  border-radius: 10px !important;
+  position: relative !important;
   padding-top: 65px !important;
-  padding-bottom: 65px!important;
-  padding-right: 65px!important;
-  padding-left: 65px!important;
-  text-align: center!important;
-  vertical-align: top!important;
+  padding-bottom: 65px !important;
+  padding-right: 65px !important;
+  padding-left: 65px !important;
+  text-align: center !important;
+  vertical-align: top !important;
 }
 .drag {
-  margin-left: 8px!important;
-  margin-right: 8px!important;
-  margin-top: 5px!important;
-  margin-bottom: 10px!important;
-  border-top: 2px solid #ccc!important;
-  border-left: 2px solid #ccc!important;
+  margin-left: 8px !important;
+  margin-right: 8px !important;
+  margin-top: 5px !important;
+  margin-bottom: 10px !important;
+  border-top: 2px solid #ccc !important;
+  border-left: 2px solid #ccc !important;
 }
 .semestre {
   margin: 0 auto;
