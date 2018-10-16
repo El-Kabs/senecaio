@@ -2,7 +2,7 @@
     <vs-sidebar position-right :reduce="reduce" :reduce-not-hover-expand="notExpand" :hidden-background="hbackground" parent=".PensumApp" default-index="1" color="primary" class="sidebarx" spacer v-model="active">
         <vs-sidebar-group vs-icon="search" title="Buscar" class="sidebar-group">
             <vs-input vs-icon="search" placeholder="Buscar" v-model="search" class="searchinput" v-on:keyup="searchquery"/>
-            <Materia class="materia" v-for="resultado in resultados" v-bind:key="resultado.cod" v-bind:title="resultado.title" v-bind:datos="resultado"/>
+            <Materia class="materia" v-for="resultado in resultados" v-bind:key="resultado.cod" v-bind:title="resultado.title" v-bind:datos="resultado" v-bind:drag="drag"/>
         </vs-sidebar-group>
     </vs-sidebar>
 </template>
@@ -23,7 +23,8 @@ export default {
       notExpand: false,
       colore: "#fcdd00",
       materias: Object,
-      resultados: Object
+      resultados: Object,
+      drag: true
     };
   },
   mounted: function() {

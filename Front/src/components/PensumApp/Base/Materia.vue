@@ -1,5 +1,5 @@
 <template>
-    <drag class="drag" :transfer-data="{ datos }" :style="styling"><span class = "texto">{{ title }}</span></drag>
+    <drag class="drag" :transfer-data="{ datos }" :style="styling" :draggable=drag><span class = "texto">{{ title }}</span></drag>
 </template>
 
 <script>
@@ -11,7 +11,8 @@ export default {
   },
   props: {
     title: String,
-    datos: Object
+    datos: Object,
+    drag: Boolean
   },
   computed: {
     styling: function() {

@@ -7,7 +7,7 @@ export default {
     name: "Espacio",
     methods: {
     handleDrop(data, event) {
-      alert(`You dropped with data: ${JSON.stringify(data)}`);
+      this.$root.$emit('materia', data);
     },
   },
 }
@@ -16,7 +16,7 @@ export default {
 <style scoped>
 .drag,
 .drop {
-  font-family: sans-serif;
+  font-family: "Muli", sans-serif;
   display: inline-block;
   border-radius: 10px;
   background: #ccc;
