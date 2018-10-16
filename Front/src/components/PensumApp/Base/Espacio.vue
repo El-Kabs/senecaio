@@ -21,16 +21,16 @@ export default {
   border-radius: 10px;
   background: #ccc;
   position: relative;
-  padding-top: 65px;
-  padding-bottom: 65px;
-  padding-right: 65px;
-  padding-left: 65px;
+  padding-right: 87px !important;
+  padding-left: 87px !important;
+  padding-top: 70px !important;
+  padding-bottom: 70px !important;
   text-align: center;
   vertical-align: top;
 }
 .drop {
-  margin-left: 8px;
-  margin-right: 8px;
+  margin-left: 8px !important;
+  margin-right: 7px !important;
   margin-top: 5px;
   margin-bottom: 10px;
   background: #eee;

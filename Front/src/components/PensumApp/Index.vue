@@ -13,16 +13,14 @@ import Materia from "@/components/PensumApp/Base/Materia";
 import Pool from "@/components/PensumApp/Base/Pool";
 export default {
   name: "IndexPensum",
-
   components: {
     Espacio,
     Materia,
     SidebarPA,
-    Pool
+    Pool,
   },
   data() {
     return {
-      lists: [["A", "B", "C"], ["D", "E", "F"]]
     };
   },
   methods: {
