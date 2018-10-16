@@ -1,6 +1,5 @@
 <template>
   <div>
-    <SidebarPA/>
     <div class = "content">
       <ul>
         <li v-for='(salon, index) of salones' :key='index'>
@@ -15,17 +14,11 @@
 <script>
 import Sidebar from "@/components/Base/Sidebar";
 import Navbar from "@/components/Base/Navbar";
-import SidebarPA from "@/components/PensumApp/SidebarPA"
-import Espacio from "@/components/PensumApp/Base/Espacio"
-import Materia from "@/components/PensumApp/Base/Materia"
 export default {
-  name: 'HelloWorld',
+  name: 'Sobrecupo',
   components: {
     Sidebar,
     Navbar,
-    SidebarPA,
-    Espacio,
-    Materia
   },
   data () {
     return {

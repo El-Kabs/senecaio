@@ -7,9 +7,10 @@
 
 <script>
 import Sidebar from "@/components/Base/Sidebar";
+
 export default {
   components: {
-    Sidebar,
+    Sidebar
   },
   name: 'App',
   mounted: function(){

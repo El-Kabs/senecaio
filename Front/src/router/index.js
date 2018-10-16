@@ -1,7 +1,8 @@
 import Vue from 'vue'
 import 'material-icons/iconfont/material-icons.css';
 import Router from 'vue-router'
-import HelloWorld from '@/components/HelloWorld'
+import Sobrecupo from '@/components/HelloWorld'
+import IndexPensum from '@/components/PensumApp/Index'
 import Vuesax from 'vuesax'
 import VueDragDrop from 'vue-drag-drop';
 
@@ -13,10 +14,18 @@ export default new Router({
   routes: [
     {
       path: '/',
-      name: 'HelloWorld',
-      component: HelloWorld,
+      name: 'Sobrecupo',
+      component: Sobrecupo,
       meta:{
         title: 'Seneca.io - Sobrecupo'
+      }
+    },
+    {
+      path: '/PensumApp',
+      name: 'IndexPensum',
+      component: IndexPensum,
+      meta:{
+        title: 'Senaca.io - PensumApp'
       }
     }
   ]
