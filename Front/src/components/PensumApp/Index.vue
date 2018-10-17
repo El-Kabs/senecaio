@@ -2,7 +2,7 @@
     <div class="PensumApp">
         <SidebarPA/>
         <h1>Prueba</h1>
-        <Pool v-bind:titulo=index+placeholder v-for="index in cuantos" v-bind:key="index.index"/>
+        <Pool v-bind:titulo=element.titulo v-for="element in pools" v-bind:key="element.titulo"/>
     </div>
 </template>
 
@@ -22,18 +22,22 @@ export default {
   data() {
     return {
       cuantos: 8,
-      placeholder: '° Semestre'
+      placeholder: '° Semestre',
+      pools: []
     };
   },
   methods: {
-    handleDrop(toList, data) {
-      const fromList = data.list;
-      if (fromList) {
-        toList.push(data.item);
-        fromList.splice(fromList.indexOf(data.item), 1);
-        toList.sort((a, b) => a > b);
-      }
+  },
+  mounted:function(){
+    const _this = this;
+    
+    for(let indice = 1; indice<=_this.cuantos; indice++){
+      var poolI = {}
+      poolI["titulo"] = indice + _this.placeholder;
+      console.log(poolI)
+      _this.pools.push(poolI)
     }
+    console.log(_this.pools)
   }
 };
 </script>
