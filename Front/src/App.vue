@@ -12,31 +12,37 @@ export default {
   components: {
     Sidebar
   },
-  name: 'App',
-  mounted: function(){
+  name: "App",
+  mounted: function() {
     this.$vs.theme({
-      primary:'rgb(252, 221, 0)'
-    })
+      primary: "rgb(252, 221, 0)"
+    });
   }
-}
+};
 </script>
 
 <style>
-@import url('https://fonts.googleapis.com/css?family=Nunito');
+@import url("https://fonts.googleapis.com/css?family=Nunito");
+::-webkit-scrollbar {
+  width: 0px; /* remove scrollbar space */
+  background: transparent; /* optional: just make scrollbar invisible */
+}
 html {
-    height: 100%;
+  overflow: scroll;
+  overflow-x: hidden;
+  height: 100%;
 }
 #app {
-  font-family: 'Nunito', sans-serif;
+  font-family: "Nunito", sans-serif;
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
   text-align: center;
   color: #2c3e50;
 }
-.content-noti{
+.content-noti {
   font-family: "Nunito", sans-serif !important;
 }
-.vs-dialog{
+.vs-dialog {
   font-family: "Nunito", sans-serif !important;
 }
 </style>

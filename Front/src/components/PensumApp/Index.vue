@@ -3,6 +3,10 @@
         <SidebarPA/>
         <h1>Prueba</h1>
         <Pool/>
+        <Pool/>
+        <Pool/>
+        <Pool/>
+        <Pool/>
     </div>
 </template>
 
