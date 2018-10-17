@@ -14,7 +14,8 @@ export default {
   },
   props: {
     title: String,
-    datos: Object
+    datos: Object,
+    titulo: ''
   },
   computed: {
     styling: function() {
@@ -42,6 +43,7 @@ export default {
     },
     accept(color) {
       const _this = this;
+      _this.datos["titulo"] = _this.titulo
       this.$root.$emit("borrarMateria", _this.datos);
       this.$vs.notify({
         color: "danger",

@@ -26,7 +26,7 @@ export default {
   },
   methods: {
     sobreCupo() {
-      this.$router.push({ name: "HelloWorld" });
+      this.$router.push({ name: "Sobrecupo" });
     },
     pensumApp() {
       this.$router.push({ name: "IndexPensum" });

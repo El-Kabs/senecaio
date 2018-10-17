@@ -37,7 +37,6 @@ export default {
       console.log(poolI)
       _this.pools.push(poolI)
     }
-    console.log(_this.pools)
   }
 };
 </script>

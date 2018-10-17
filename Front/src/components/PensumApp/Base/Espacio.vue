@@ -6,8 +6,14 @@
 export default {
     methods: {
     handleDrop(data, event) {
+      data["titulo"] = this.titulo;
+      data["indice"] = this.indice;
       this.$root.$emit('materia', data);
     },
+  },
+  props:{
+    titulo: '',
+    indice: ''
   },
 }
 </script>

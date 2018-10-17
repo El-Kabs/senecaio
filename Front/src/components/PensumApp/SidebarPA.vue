@@ -70,6 +70,9 @@ export default {
 </script>
 
 <style scoped>
+.sidebarx{
+  height: 100%;
+}
 .sidebar-group {
   align-items: center;
   font-family: 'Nunito', sans-serif;
