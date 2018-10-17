@@ -1,20 +1,20 @@
 <template>
   <div class="con-type-example">
-    <vs-navbar :type="type" v-model="activeItem" class="nabarx">
+    <vs-navbar :type="type" :color="colorx" v-model="activeItem" class="nabarx">
       <vs-navbar-title>
         Seneca.io
       </vs-navbar-title>
 
       <vs-spacer></vs-spacer>
 
-      <vs-navbar-item index="0">
-        <a href="#">Home</a>
+      <vs-navbar-item index="1" icon="group" class="itemNavbar" v-on:click="sobreCupo">
+        <a v-on:click="sobreCupo">Sobrecupo</a>
       </vs-navbar-item>
-      <vs-navbar-item index="1">
-        <a href="#">News</a>
+      <vs-navbar-item index="2" icon="today" class="itemNavbar">
+        <a>Academical</a>
       </vs-navbar-item>
-      <vs-navbar-item index="2">
-        <a href="#">Update</a>
+      <vs-navbar-item index="3" icon="school" class="itemSidebar" v-on:click="pensumApp">
+        <a v-on:click="pensumApp">PensumApp</a>
       </vs-navbar-item>
     </vs-navbar>
   </div>
@@ -22,23 +22,30 @@
 
 <script>
 export default {
-     data:()=>({
-        activeItem: 0,
-        type: 'shadow',
-        activeS: false 
-     }),
-     methods:{
-         openSidebar(){
-            this.$root.$emit('sideBarEvent', 'evento')
-         }
-     }
-}
+  data: () => ({
+    activeItem: 0,
+    type: "shadow",
+    activeS: false,
+    colorx:'#edac09',
+  }),
+  methods: {
+    openSidebar() {
+      this.$root.$emit("sideBarEvent", "evento");
+    },
+    sobreCupo() {
+      this.$router.push({ name: "Sobrecupo" });
+    },
+    pensumApp() {
+      this.$router.push({ name: "IndexPensum" });
+    }
+  }
+};
 </script>
 
 <style scoped>
-.vs-navbar{
-    position: fixed;
-    top: 0;
+.vs-navbar {
+  position: fixed;
+  top: 0;
 }
 </style>
 

@@ -1,5 +1,5 @@
 <template>
-    <vs-sidebar :reduce="reduce" :reduce-not-hover-expand="notExpand" :hidden-background="hbackground" parent=".PensumApp" default-index="1" color="primary" class="sidebarx" spacer v-model="active">
+    <vs-sidebar static :reduce="reduce" :reduce-not-hover-expand="notExpand" :hidden-background="hbackground" parent=".PEnsumApp" default-index="1" color="primary" class="sidebarx" spacer v-model="active">
         <vs-sidebar-group vs-icon="search" title="Buscar" class="sidebar-group">
             <vs-input vs-icon="search" placeholder="Buscar" v-model="search" class="searchinput" v-on:keyup="searchquery"/>
             <Materia class="materia" v-for="resultado in resultados" v-bind:key="resultado.cod+resultado.title" v-bind:title="resultado.title" v-bind:datos="resultado" v-bind:drag="drag"/>
@@ -73,6 +73,9 @@ export default {
 .sidebarx{
   margin-top: 39px!important;
   height: 100%;
+}
+.vs-sidebar{
+  margin-top: 39px!important;
 }
 .sidebar-group {
   align-items: center;

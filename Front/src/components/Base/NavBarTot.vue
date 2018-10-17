@@ -19,13 +19,13 @@
       <vs-spacer></vs-spacer>
 
       <vs-navbar-item index="0">
-        <a href="#">Home</a>
+        <a href="#">Sobrecupo</a>
       </vs-navbar-item>
       <vs-navbar-item index="1">
-        <a href="#">News</a>
+        <a href="#">Academical</a>
       </vs-navbar-item>
       <vs-navbar-item index="2">
-        <a href="#">Update</a>
+        <a href="#">PensumApp </a>
       </vs-navbar-item>
     </vs-navbar>
   </div>

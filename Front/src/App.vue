@@ -24,6 +24,9 @@ export default {
 
 <style>
 @import url("https://fonts.googleapis.com/css?family=Nunito");
+.vs-sidebar{
+  margin-top: 39px!important;
+}
 ::-webkit-scrollbar {
   width: 0px;
   background: transparent;

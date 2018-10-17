@@ -6,7 +6,7 @@
             <Espacio v-for="element in espacios" v-bind:key="element.indice" v-bind:titulo="element.titulo" v-bind:indice="element.indice"/>
             <h1 class = "footer">
                 <span>
-                Total creditos: {{creditos}}
+                Total créditos: {{creditos}}
                 </span>
             </h1>
         </div>
