@@ -33,4 +33,10 @@ html {
   text-align: center;
   color: #2c3e50;
 }
+.content-noti{
+  font-family: "Nunito", sans-serif !important;
+}
+.vs-dialog{
+  font-family: "Nunito", sans-serif !important;
+}
 </style>

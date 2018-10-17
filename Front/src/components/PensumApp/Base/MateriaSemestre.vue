@@ -28,15 +28,19 @@ export default {
   methods: {
     borrar() {
       const _this = this;
+      var texto = ''
+      texto+="Departamento: "+_this.datos.depto+ " \nCreditos: "+_this.datos.credits
       this.$vs.dialog({
         type: "confirm",
         color: "danger",
-        title: 'Información',
-        text: _this.datos,
-        accept: 'this.acceptAlert'
+        title: _this.datos.title,
+        text: texto,
+        accept: _this.accept,
+        acceptText: "Eliminar",
+        cancelText: "Cancelar"
       });
     },
-    acceptAlert(color) {
+    accept(color) {
       const _this = this;
       this.$root.$emit("borrarMateria", _this.datos);
       this.$vs.notify({
@@ -50,6 +54,7 @@ export default {
 </script>
 
 <style scoped>
+
 .botonhijodeperra {
   font-family: "Nunito", sans-serif;
   display: inline-block;
