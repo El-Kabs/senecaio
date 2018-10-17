@@ -1,16 +1,17 @@
 <template>
   <div id="app"> 
-    <Sidebar/>
+    <Navbar/>
     <router-view/>
   </div>
 </template>
 
 <script>
 import Sidebar from "@/components/Base/Sidebar";
-
+import Navbar from "@/components/Base/Navbar";
 export default {
   components: {
-    Sidebar
+    Sidebar,
+    Navbar
   },
   name: "App",
   mounted: function() {
