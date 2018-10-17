@@ -1,7 +1,7 @@
 <template>
     <div>
         <div class = "semestre">
-            <h1 class = "header"><span>&nbsp;Primer semestre&nbsp;</span></h1>
+            <h1 class = "header"><span>&nbsp;{{titulo}}&nbsp;</span></h1>
             <MateriaSemestre v-for="materia in materias" v-bind:key="materia.cod" v-bind:title="materia.title" v-bind:datos="materia"/>
             <Espacio v-for="index in cuantos" v-bind:key="index"/>
             <h1 class = "footer">
@@ -30,6 +30,9 @@ export default {
       materias: [],
       creditos: 0,
     };
+  },
+  props:{
+    titulo: ''
   },
   mounted: function() {
     const _this = this;

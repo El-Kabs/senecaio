@@ -24,8 +24,8 @@ export default {
 <style>
 @import url("https://fonts.googleapis.com/css?family=Nunito");
 ::-webkit-scrollbar {
-  width: 0px; /* remove scrollbar space */
-  background: transparent; /* optional: just make scrollbar invisible */
+  width: 0px;
+  background: transparent;
 }
 html {
   overflow: scroll;

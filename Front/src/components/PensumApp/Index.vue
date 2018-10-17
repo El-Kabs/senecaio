@@ -2,11 +2,7 @@
     <div class="PensumApp">
         <SidebarPA/>
         <h1>Prueba</h1>
-        <Pool/>
-        <Pool/>
-        <Pool/>
-        <Pool/>
-        <Pool/>
+        <Pool v-bind:titulo=index+placeholder v-for="index in cuantos" v-bind:key="index.index"/>
     </div>
 </template>
 
@@ -25,6 +21,8 @@ export default {
   },
   data() {
     return {
+      cuantos: 8,
+      placeholder: '° Semestre'
     };
   },
   methods: {
