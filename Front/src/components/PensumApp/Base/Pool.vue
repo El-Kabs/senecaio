@@ -1,7 +1,7 @@
 <template>
     <div>
         <div class = "semestre">
-            <h1 class = "header"><span>&nbsp;{{titulo}}&nbsp;</span><vs-button vs-size="small" class = "botonn" color="success" style="border-radius: 100%;" vs-type="filled" vs-icon="add" v-on:click="newEspacio"></vs-button></h1>
+            <h1 class = "header"><span>&nbsp;{{titulo}}&nbsp;</span><vs-button vs-size="small" class = "botonn" color="success" style="border-radius: 100%;" vs-type="filled" vs-icon="add" v-on:click="newEspacio"></vs-button><vs-button vs-size="small" class = "botonr" color="success" style="border-radius: 100%;" vs-type="filled" vs-icon="remove" v-on:click="removeEspacio"></vs-button></h1>
             <MateriaSemestre v-for="materia in materias" v-bind:key="materia.cod" v-bind:titulo="titulo" v-bind:title="materia.title" v-bind:datos="materia"/>
             <Espacio v-for="element in espacios" v-bind:key="element.indice" v-bind:titulo="element.titulo" v-bind:indice="element.indice"/>
             <h1 class = "footer">
@@ -39,14 +39,28 @@ export default {
     newEspacio() {
       const _this = this;
       _this.cuantos++;
-      _this.espacios = []
+      _this.espacios = [];
       for (let indice = 1; indice <= _this.cuantos; indice++) {
-      var poolI = {};
-      poolI["titulo"] = _this.titulo;
-      poolI["indice"] = indice + _this.titulo;
-      _this.espacios.push(poolI);
-    }
+        var poolI = {};
+        poolI["titulo"] = _this.titulo;
+        poolI["indice"] = indice + _this.titulo;
+        _this.espacios.push(poolI);
+      }
     },
+    removeEspacio() {
+      const _this = this;
+      _this.cuantos--;
+      if(_this.cuantos===0){
+        _this.cuantos++;
+      }
+      _this.espacios = [];
+      for (let indice = 1; indice <= _this.cuantos; indice++) {
+        var poolI = {};
+        poolI["titulo"] = _this.titulo;
+        poolI["indice"] = indice + _this.titulo;
+        _this.espacios.push(poolI);
+      }
+    }
   },
   mounted: function() {
     const _this = this;
@@ -72,7 +86,7 @@ export default {
           _this.creditos =
             parseInt(_this.creditos) + parseInt(data.datos.credits);
           _this.cuantos--;
-          _this.espacios=[]
+          _this.espacios = [];
           for (let indice = 1; indice <= _this.cuantos; indice++) {
             var poolI = {};
             poolI["titulo"] = _this.titulo;
@@ -91,13 +105,13 @@ export default {
           _this.materias.splice(index, 1);
         }
         _this.cuantos++;
-        _this.espacios=[]
-          for (let indice = 1; indice <= _this.cuantos; indice++) {
-            var poolI = {};
-            poolI["titulo"] = _this.titulo;
-            poolI["indice"] = indice + _this.titulo;
-            _this.espacios.push(poolI);
-          }
+        _this.espacios = [];
+        for (let indice = 1; indice <= _this.cuantos; indice++) {
+          var poolI = {};
+          poolI["titulo"] = _this.titulo;
+          poolI["indice"] = indice + _this.titulo;
+          _this.espacios.push(poolI);
+        }
         _this.creditos = _this.creditos - data.credits;
       }
     });
@@ -106,11 +120,18 @@ export default {
 </script>
 
 <style scoped>
-.botonn{
-  width: 20px!important;
-  height: 20px!important;
-  background: #00a31d!important;
-  padding: 3px!important;
+.botonn {
+  width: 20px !important;
+  height: 20px !important;
+  margin-right: 5px !important;
+  background: #00a31d !important;
+  padding: 3px !important;
+}
+.botonr {
+  width: 20px !important;
+  height: 20px !important;
+  background: #ed2300 !important;
+  padding: 3px !important;
 }
 .semestre {
   margin: 0 auto;
