@@ -33,6 +33,7 @@ export default {
   background: transparent;
 }
 html {
+  margin-top: 35px!important;
   overflow: scroll;
   overflow-x: hidden;
   height: 100%;

@@ -6,7 +6,9 @@
         <Pool v-bind:titulo=element.titulo v-for="element in pools" v-bind:key="element.titulo"/>
         <div class = "botones">
           <vs-button color="danger" vs-size="large" vs-type="filled" vs-icon="face" class="botonAddSem" v-on:click="exportToJson"></vs-button>
-          <vs-button color="danger" vs-size="large" vs-type="filled" vs-icon="add" class="botonAddSem" v-on:click="addSemestre"></vs-button>
+          <a href="#PensumApp" v-smooth-scroll="{ duration: 2000, offset:-50 }">
+          <vs-button id="PensumApp" color="danger" vs-size="large" vs-type="filled" vs-icon="add" class="botonAddSem"  v-on:click="addSemestre"></vs-button>
+          </a>
           <vs-button color="danger" vs-size="large" vs-type="filled" vs-icon="remove" class="botonRemSem" v-on:click="removeSemestre"></vs-button>
         </div>
     </div>
@@ -42,6 +44,7 @@ export default {
         poolI["titulo"] = indice + _this.placeholder;
         _this.pools.push(poolI);
       }
+      
     },
     removeSemestre() {
       const _this = this;
