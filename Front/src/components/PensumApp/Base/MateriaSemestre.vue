@@ -28,9 +28,24 @@ export default {
   },
   methods: {
     borrar() {
+
       const _this = this;
       var texto = ''
-      texto+="Departamento: "+_this.datos.depto+ " \nCreditos: "+_this.datos.credits
+      var prer = ''
+      var core = ''
+      for(let i = 0; i<_this.datos.prereq.length; i++){
+        prer += this.datos.prereq[i].code
+      }
+      for(let i = 0; i<_this.datos.coreq.length; i++){
+        var estructura = _this.datos.coreq[i].subject + _this.datos.coreq[i].number 
+        core += estructura
+      }
+      if(prer === '')
+        prer = "Ninguno"
+      if(core === '')
+        core = "Ninguno"
+      texto+="Código: "+_this.datos.depto+ _this.datos.cod + " \nCreditos: "+_this.datos.credits+"\n Prerrequisitos: " + prer+ "\n Correquisitos: "+ core
+      console.log(_this.datos)
       this.$vs.dialog({
         type: "confirm",
         color: "danger",
