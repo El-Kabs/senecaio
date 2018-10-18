@@ -60,7 +60,6 @@ export default {
       }
     },
     exportToJson(){
-      console.log("JSON")
       this.$root.$emit("exportToJson", "evento");
     }
   },
@@ -73,6 +72,10 @@ export default {
       console.log(poolI);
       _this.pools.push(poolI);
     }
+
+    _this.$root.$on("exportFinal", function(data){
+      console.log(data)
+    })
   }
 };
 </script>

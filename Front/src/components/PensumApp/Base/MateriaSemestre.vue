@@ -67,9 +67,12 @@ export default {
     }
   },
   mounted: function(){
-    const _this = this
+    const _this = this;
     _this.$root.$on("exportToJsonMaterias", function(data){
-      console.log("JSON EN MATERIAS")
+      if(_this.titulo === data){
+        _this.datos["semestre"] = _this.titulo
+        _this.$root.$emit("exportFinal", _this.datos)
+      }
     })
   }
 };

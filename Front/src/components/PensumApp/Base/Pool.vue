@@ -73,7 +73,6 @@ export default {
     }
 
     _this.$root.$on("exportToJson", function(data) {
-      console.log("JSON EN POOL")
       _this.$root.$emit("exportToJsonMaterias", _this.titulo);
     });
 
