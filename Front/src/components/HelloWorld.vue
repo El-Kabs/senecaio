@@ -1,5 +1,6 @@
 <template>
   <div>
+    <h1> Sobrecupo</h1>
     <div class = "content">
       <ul>
         <li v-for='(salon, index) of salones' :key='index'>
