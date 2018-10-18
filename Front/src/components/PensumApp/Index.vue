@@ -2,8 +2,10 @@
     <div class="PensumApp">
         <SidebarPA/>
         <h1>PensumApp</h1>
+        
         <Pool v-bind:titulo=element.titulo v-for="element in pools" v-bind:key="element.titulo"/>
         <div class = "botones">
+          <vs-button color="danger" vs-size="large" vs-type="filled" vs-icon="face" class="botonAddSem" v-on:click="exportToJson"></vs-button>
           <vs-button color="danger" vs-size="large" vs-type="filled" vs-icon="add" class="botonAddSem" v-on:click="addSemestre"></vs-button>
           <vs-button color="danger" vs-size="large" vs-type="filled" vs-icon="remove" class="botonRemSem" v-on:click="removeSemestre"></vs-button>
         </div>
@@ -53,6 +55,10 @@ export default {
         poolI["titulo"] = indice + _this.placeholder;
         _this.pools.push(poolI);
       }
+    },
+    exportToJson(){
+      console.log("JSON")
+      this.$root.$emit("exportToJson", "evento");
     }
   },
   mounted: function() {

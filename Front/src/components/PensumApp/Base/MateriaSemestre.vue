@@ -28,7 +28,6 @@ export default {
   },
   methods: {
     borrar() {
-
       const _this = this;
       var texto = ''
       var prer = ''
@@ -66,6 +65,12 @@ export default {
         text: "La materia fue eliminada."
       });
     }
+  },
+  mounted: function(){
+    const _this = this
+    _this.$root.$on("exportToJsonMaterias", function(data){
+      console.log("JSON EN MATERIAS")
+    })
   }
 };
 </script>

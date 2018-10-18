@@ -50,7 +50,7 @@ export default {
     removeEspacio() {
       const _this = this;
       _this.cuantos--;
-      if(_this.cuantos===0){
+      if (_this.cuantos === 0) {
         _this.cuantos++;
       }
       _this.espacios = [];
@@ -71,6 +71,11 @@ export default {
       poolI["indice"] = indice + _this.titulo;
       _this.espacios.push(poolI);
     }
+
+    _this.$root.$on("exportToJson", function(data) {
+      console.log("JSON EN POOL")
+      _this.$root.$emit("exportToJsonMaterias", _this.titulo);
+    });
 
     _this.$root.$on("materia", function(data) {
       if (data.titulo === _this.titulo) {
