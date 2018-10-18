@@ -1,5 +1,5 @@
 <template>
-    <drag class="drag" :transfer-data="{ datos }" :style="styling" :draggable=drag><span class = "texto">{{ title }}</span></drag>
+    <drag class="drag" :transfer-data="{ datos }" :style="styling" :draggable=drag><span class = "texto">{{ title }} - {{datos.depto}} - {{datos.credits}} Créditos</span></drag>
 </template>
 
 <script>
