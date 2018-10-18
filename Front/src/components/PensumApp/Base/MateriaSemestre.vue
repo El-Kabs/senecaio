@@ -44,7 +44,6 @@ export default {
       if(core === '')
         core = "Ninguno"
       texto+="Código: "+_this.datos.depto+ _this.datos.cod + " \nCreditos: "+_this.datos.credits+"\n Prerrequisitos: " + prer+ "\n Correquisitos: "+ core
-      console.log(_this.datos)
       this.$vs.dialog({
         type: "confirm",
         color: "danger",
@@ -71,7 +70,7 @@ export default {
     _this.$root.$on("exportToJsonMaterias", function(data){
       if(_this.titulo === data){
         _this.datos["semestre"] = _this.titulo
-        _this.$root.$emit("exportFinal", _this.datos)
+        _this.$root.$emit("exportFinal", _this.datos);
       }
     })
   }
