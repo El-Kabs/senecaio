@@ -1,10 +1,9 @@
 <template>
     <div>
         <div class = "semestre">
-            <h1 class = "header"><span>&nbsp;{{titulo}}&nbsp;</span><span><vs-button color="danger" vs-type="gradient" vs-icon="person_add"></vs-button></span></h1>
+            <h1 class = "header"><span>&nbsp;{{titulo}}&nbsp;</span><vs-button vs-size="small" class = "botonn" color="success" style="border-radius: 100%;" vs-type="filled" vs-icon="add" v-on:click="newEspacio"></vs-button></h1>
             <MateriaSemestre v-for="materia in materias" v-bind:key="materia.cod" v-bind:titulo="titulo" v-bind:title="materia.title" v-bind:datos="materia"/>
             <Espacio v-for="element in espacios" v-bind:key="element.indice" v-bind:titulo="element.titulo" v-bind:indice="element.indice"/>
-            
             <h1 class = "footer">
                 <span>
                 Total créditos: {{creditos}}
@@ -35,6 +34,19 @@ export default {
   },
   props: {
     titulo: ""
+  },
+  methods: {
+    newEspacio() {
+      const _this = this;
+      _this.cuantos++;
+      _this.espacios = []
+      for (let indice = 1; indice <= _this.cuantos; indice++) {
+      var poolI = {};
+      poolI["titulo"] = _this.titulo;
+      poolI["indice"] = indice + _this.titulo;
+      _this.espacios.push(poolI);
+    }
+    },
   },
   mounted: function() {
     const _this = this;
@@ -94,6 +106,12 @@ export default {
 </script>
 
 <style scoped>
+.botonn{
+  width: 20px!important;
+  height: 20px!important;
+  background: #00a31d!important;
+  padding: 3px!important;
+}
 .semestre {
   margin: 0 auto;
   display: inline-block;

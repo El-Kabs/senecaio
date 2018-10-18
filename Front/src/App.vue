@@ -16,7 +16,8 @@ export default {
   name: "App",
   mounted: function() {
     this.$vs.theme({
-      primary: "rgb(252, 221, 0)"
+      primary: "rgb(252, 221, 0)",
+      success: "rgb(0, 255, 46)"
     });
   }
 };
