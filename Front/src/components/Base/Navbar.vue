@@ -26,7 +26,7 @@ export default {
     activeItem: 0,
     type: "shadow",
     activeS: false,
-    colorx:'#edac09',
+    colorx:'#ffe032',
   }),
   methods: {
     openSidebar() {

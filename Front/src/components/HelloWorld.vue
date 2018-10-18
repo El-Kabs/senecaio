@@ -47,10 +47,12 @@ export default {
 
 <style scoped>
 .frame{
+  
   width: 100%;
   height: 100;
 }
 .content{
+  margin-top: 39px !important;
   height: 100%;
   margin-left: 54px;
 }
