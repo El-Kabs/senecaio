@@ -1,9 +1,10 @@
 <template>
     <div>
         <div class = "semestre">
-            <h1 class = "header"><span>&nbsp;{{titulo}}&nbsp;</span></h1>
+            <h1 class = "header"><span>&nbsp;{{titulo}}&nbsp;</span><span><vs-button color="danger" vs-type="gradient" vs-icon="person_add"></vs-button></span></h1>
             <MateriaSemestre v-for="materia in materias" v-bind:key="materia.cod" v-bind:titulo="titulo" v-bind:title="materia.title" v-bind:datos="materia"/>
             <Espacio v-for="element in espacios" v-bind:key="element.indice" v-bind:titulo="element.titulo" v-bind:indice="element.indice"/>
+            
             <h1 class = "footer">
                 <span>
                 Total créditos: {{creditos}}
