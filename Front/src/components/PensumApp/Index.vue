@@ -1,7 +1,7 @@
 <template>
     <div class="PensumApp">
         <SidebarPA/>
-        <h1>Prueba</h1>
+        <h1>PensumApp</h1>
         <Pool v-bind:titulo=element.titulo v-for="element in pools" v-bind:key="element.titulo"/>
         <div class = "botones">
           <vs-button color="danger" vs-size="large" vs-type="filled" vs-icon="add" class="botonAddSem" v-on:click="addSemestre"></vs-button>
