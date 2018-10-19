@@ -1,5 +1,5 @@
 <template>
-    <vs-sidebar :reduce="reduce" :reduce-not-hover-expand="notExpand" :hidden-background="hbackground" parent="body" default-index="1" color="primary" v-model="active">
+    <vs-sidebar click-not-close :reduce="reduce" :reduce-not-hover-expand="notExpand" :hidden-background="hbackground" parent="body" default-index="1" color="primary" v-model="active">
         <vs-sidebar-group vs-icon="search" title="Buscar" class="sidebar-group">
             <vs-input vs-icon="search" placeholder="Buscar" v-model="search" class="searchinput" v-on:keyup="searchquery"/>
             <Materia class="materia" v-for="resultado in resultados" v-bind:key="resultado.cod+resultado.title" v-bind:title="resultado.title" v-bind:datos="resultado" v-bind:drag="drag"/>
@@ -24,7 +24,7 @@ export default {
       colore: "#fcdd00",
       materias: Object,
       resultados: Object,
-      drag: true
+      drag: true,
     };
   },
   mounted: function() {
@@ -36,7 +36,7 @@ export default {
       _this.active = true;
     });
     _this.$root.$on("closeSidebar", function(data){
-      _this.active = true;
+      _this.active = false;
     });
     fetch(
       "https://raw.githubusercontent.com/El-Kabs/pensumapp2/master/scrap/materiasFinal.json",
