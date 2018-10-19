@@ -30,12 +30,19 @@ export default {
   }),
   methods: {
     openSidebar() {
-      this.$root.$emit("sideBarEvent", "evento");
+      console.log("Abrir")
+      this.$root.$emit("openSidebar", "evento");
+    },
+    closeSidebar() {
+      console.log("Cerrar")
+      this.$root.$emit("closeSidebar", "evento");
     },
     sobreCupo() {
+      this.closeSidebar();
       this.$router.push({ name: "Sobrecupo" });
     },
     pensumApp() {
+      this.openSidebar();
       this.$router.push({ name: "IndexPensum" });
     }
   }

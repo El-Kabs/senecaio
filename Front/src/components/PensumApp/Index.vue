@@ -1,6 +1,5 @@
 <template>
     <div class="PensumApp">
-        <SidebarPA/>
         <h1>PensumApp</h1>
         
         <Pool v-bind:titulo=element.titulo v-for="element in pools" v-bind:key="element.titulo"/>
@@ -44,7 +43,6 @@ export default {
         poolI["titulo"] = indice + _this.placeholder;
         _this.pools.push(poolI);
       }
-      
     },
     removeSemestre() {
       const _this = this;
@@ -59,13 +57,13 @@ export default {
         _this.pools.push(poolI);
       }
     },
-    exportToJson(){
+    exportToJson() {
       this.$root.$emit("exportToJson", "evento");
     }
   },
   mounted: function() {
     const _this = this;
-
+    console.log(this.$refs);
     for (let indice = 1; indice <= _this.cuantos; indice++) {
       var poolI = {};
       poolI["titulo"] = indice + _this.placeholder;
@@ -73,9 +71,9 @@ export default {
       _this.pools.push(poolI);
     }
 
-    _this.$root.$on("exportFinal", function(data){
-      console.log(data)
-    })
+    _this.$root.$on("exportFinal", function(data) {
+      console.log(data);
+    });
   }
 };
 </script>
@@ -92,7 +90,7 @@ export default {
   margin-bottom: 25px;
   background: #ed2300 !important;
 }
-.botones{
+.botones {
   display: table;
   margin: 0 auto;
 }

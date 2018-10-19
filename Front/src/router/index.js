@@ -10,7 +10,7 @@ import vueSmoothScroll from 'vue-smooth-scroll'
 Vue.use(Router)
 Vue.use(Vuesax)
 Vue.use(VueDragDrop);
-Vue.use(vueSmoothScroll)
+Vue.use(vueSmoothScroll);
 
 export default new Router({
   routes: [

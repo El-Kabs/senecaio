@@ -1,6 +1,7 @@
 <template>
   <div id="app"> 
     <Navbar/>
+    <SidebarPA/>
     <router-view/>
   </div>
 </template>
@@ -8,10 +9,12 @@
 <script>
 import Sidebar from "@/components/Base/Sidebar";
 import Navbar from "@/components/Base/Navbar";
+import SidebarPA from "@/components/PensumApp/SidebarPA"
 export default {
   components: {
     Sidebar,
-    Navbar
+    Navbar,
+    SidebarPA
   },
   name: "App",
   mounted: function() {

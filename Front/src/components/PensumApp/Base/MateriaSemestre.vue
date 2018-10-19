@@ -58,6 +58,7 @@ export default {
       const _this = this;
       _this.datos["titulo"] = _this.titulo
       this.$root.$emit("borrarMateria", _this.datos);
+      this.$destroy();
       this.$vs.notify({
         color: "danger",
         title: "Materia eliminada",
