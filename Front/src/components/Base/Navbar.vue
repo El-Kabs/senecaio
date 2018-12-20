@@ -10,8 +10,8 @@
       <vs-navbar-item index="1" icon="group" class="itemNavbar" v-on:click="sobreCupo">
         <a v-on:click="sobreCupo">Sobrecupo</a>
       </vs-navbar-item>
-      <vs-navbar-item index="2" icon="today" class="itemNavbar">
-        <a>Academical</a>
+      <vs-navbar-item index="2" icon="today" class="itemNavbar" v-on:click="academical">
+        <a v-on:click="academical">Academical</a>
       </vs-navbar-item>
       <vs-navbar-item index="3" icon="school" class="itemSidebar" v-on:click="pensumApp">
         <a v-on:click="pensumApp">PensumApp</a>
@@ -30,20 +30,35 @@ export default {
   }),
   methods: {
     openSidebar() {
-      console.log("Abrir")
+      console.log("Abrir PensumApp")
       this.$root.$emit("openSidebar", "evento");
     },
     closeSidebar() {
-      console.log("Cerrar")
+      console.log("Cerrar PensumApp")
       this.$root.$emit("closeSidebar", "evento");
+    },
+    openSidebarA() {
+      console.log("Abrir Academical")
+      this.$root.$emit("openSidebarA", "evento");
+    },
+    closeSidebarA() {
+      console.log("Cerrar Academical")
+      this.$root.$emit("closeSidebarA", "evento");
     },
     sobreCupo() {
       this.closeSidebar();
+      this.closeSidebarA();
       this.$router.push({ name: "Sobrecupo" });
     },
     pensumApp() {
       this.openSidebar();
+      this.closeSidebarA();
       this.$router.push({ name: "IndexPensum" });
+    },
+    academical() {
+      this.closeSidebar();
+      this.openSidebarA();
+      this.$router.push({ name: "IndexAcademical" });
     }
   }
 };

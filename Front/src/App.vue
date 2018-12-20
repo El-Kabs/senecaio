@@ -2,6 +2,7 @@
   <div id="app"> 
     <Navbar/>
     <SidebarPA/>
+    <SidebarA/>
     <router-view/>
   </div>
 </template>
@@ -10,11 +11,13 @@
 import Sidebar from "@/components/Base/Sidebar";
 import Navbar from "@/components/Base/Navbar";
 import SidebarPA from "@/components/PensumApp/SidebarPA"
+import SidebarA from "@/components/Academical/SidebarA"
 export default {
   components: {
     Sidebar,
     Navbar,
-    SidebarPA
+    SidebarPA,
+    SidebarA
   },
   name: "App",
   mounted: function() {
@@ -27,7 +30,7 @@ export default {
 </script>
 
 <style>
-@import url("https://fonts.googleapis.com/css?family=Nunito");
+@import url('https://fonts.googleapis.com/css?family=Nunito:300');
 .vs-sidebar{
   margin-top: 39px!important;
 }
@@ -53,5 +56,8 @@ html {
 }
 .vs-dialog {
   font-family: "Nunito", sans-serif !important;
+}
+.fc-content{
+  cursor: pointer;
 }
 </style>

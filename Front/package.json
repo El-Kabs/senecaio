@@ -17,6 +17,8 @@
     "stylus-loader": "^3.0.2",
     "vue": "^2.5.2",
     "vue-drag-drop": "^1.1.4",
+    "vue-full-calendar": "^2.7.0",
+    "vue-moment": "^4.0.0",
     "vue-router": "^3.0.1",
     "vue-smooth-scroll": "^1.0.13",
     "vuesax": "^3.4.16"

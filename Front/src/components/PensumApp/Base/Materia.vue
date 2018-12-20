@@ -29,9 +29,9 @@ export default {
         "#A4EDE6",
         "#E1F9F7"
       ];
-      var hash = 13;
+      var hash = 130;
       for (var i = 0; i < _this.title.length; i++) {
-        hash = _this.title.charCodeAt(i) + (hash << 17) - hash;
+        hash = _this.title.charCodeAt(i) + (hash << 170) - hash;
       }
       // Calculate color
       var index = Math.abs(hash % colors.length);
