@@ -51,7 +51,33 @@ export default {
   methods: {
     seleccion: function (event){
       const _this = this;
+      var url = "http://senecacupos.herokuapp.com/profesor?profe="+_this.datos.profesores[0]
+      fetch(url, {
+        method: 'GET'
+      }).then(res => res.text()).then(json => {
+        console.log(json)
+        _this.datos["calificacion"] = json
+        this.$vs.dialog({
+        type: "confirm",
+        color: "success",
+        title: _this.datos.title,
+        text: _this.datos,
+        accept: _this.accept,
+        acceptText: "Agregar",
+        cancelText: "Cancelar"
+      });
+      
+      })
+    },
+    accept(color) {
+      const _this = this;
+      _this.datos["titulo"] = _this.titulo
       this.$root.$emit("AgregarMateriaBarra", _this.datos);
+      this.$vs.notify({
+        color: "success",
+        title: "Materia agregada",
+        text: "La materia fue agregada."
+      });
     },
     toUp: function capitalizeFirstLetter(string) {
         return string.charAt(0).toUpperCase() + string.slice(1);
@@ -63,8 +89,11 @@ export default {
         else{
             string = string.toLowerCase();
             return string.charAt(0).toUpperCase() + string.slice(1);
-        }
-            
+        }            
+    },
+    checkInCalendar: function (event){
+      const _this = this;
+      this.$root.$emit("MirarMateriaBarra", _this.datos);
     }
   }
 };

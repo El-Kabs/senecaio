@@ -35,14 +35,15 @@ export default {
         locale: "es",
         titleFormat: "DD MMMM YYYY",
         columnFormat: "dddd - D",
-        defaultDate: "2019-01-21", 
+        defaultDate: "2019-01-21",
+        ultimoEvent: Object
       },
       events: new Array()
     };
   },
   mounted: function() {
     const _this = this;
-     _this.$root.$on("QuitarMateriaBarra", function(data){
+    _this.$root.$on("QuitarMateriaBarra", function(data) {
       var index = _this.events.indexOf(data);
       if (index > -1) {
         _this.events.splice(index, 1);
@@ -51,38 +52,133 @@ export default {
     _this.$root.$on("AgregarMateriaBarra", function(data) {
       _this.agregarFechas(data);
     });
+    _this.$root.$on("MirarMateriaBarra", function(data) {
+      _this.checkInCalendar(data);
+    });
+    _this.$root.$on("QuitarMateriaCalendario", function(data) {
+      _this.deleteCalendar(data);
+    });
   },
   methods: {
-    eventSelected: function(event){
+    eventSelected: function(event) {
       const _this = this;
-      var arr = _this.events;
-      var b = arr.filter(function(item) {
+      _this.ultimoEvent = event;
+      this.$vs.dialog({
+        type: "confirm",
+        color: "danger",
+        title: event.data.title,
+        text: event.data,
+        accept: _this.delete,
+        acceptText: "Eliminar",
+        cancelText: "Cancelar"
+      });
+    },
+    deleteCalendar: function(data) {
+      const _this = this;
+      try {
+        let event = _this.ultimoEvent;
+        var arr = _this.events;
+        var b = arr.filter(function(item) {
           return (
-            item.data.nrc === event.data.nrc ||
+            item.data.nrc === event.data.nrc &&
             item.data.title.toUpperCase() === event.data.title.toUpperCase()
           );
         });
-      _this.events = _this.events.filter( ( el ) => !b.includes( el ) );
-      _this.$root.$emit("QuitarMateriaBarra", event.data);
+        _this.events = _this.events.filter(el => !b.includes(el));
+        _this.ultimoEvent = Object;
+        _this.$root.$emit("QuitarMateriaBarra", event.data);
+      } catch (err) {
+        let event = data;
+        var arr = _this.events;
+        var b = arr.filter(function(item) {
+          return (
+            item.data.nrc === event.nrc &&
+            item.data.title.toUpperCase() === event.title.toUpperCase()
+          );
+        });
+        _this.events = _this.events.filter(el => !b.includes(el));
+        _this.$root.$emit("QuitarMateriaBarra", event.data);
+      }
+    },
+    delete: function(color) {
+      const _this = this;
+      this.$root.$emit("QuitarMateriaCalendario", _this);
+      this.$vs.notify({
+        color: "danger",
+        title: "Materia eliminada",
+        text: "La materia fue eliminada."
+      });
     },
     agregarFechas: function(data) {
       const _this = this;
-      var fechas = []
+      var fechas = [];
       data.horarios.forEach(element => {
         var horaInicio = formatoHora(element.hora_inicio);
         var horaFin = formatoHora(element.hora_fin);
-        var horaInicioHora = horaInicio.split(":")[0]
-        var horaInicioMinutos = horaInicio.split(":")[1]
-        var horaFinHora = horaFin.split(":")[0]
-        var horaFinMinutos = horaFin.split(":")[1]
+        var horaInicioHora = horaInicio.split(":")[0];
+        var horaInicioMinutos = horaInicio.split(":")[1];
+        var horaFinHora = horaFin.split(":")[0];
+        var horaFinMinutos = horaFin.split(":")[1];
         calcularFechas(element).forEach(elementb => {
           elementb.forEach(elementc => {
-            var inicio = moment(elementc).add(horaInicioHora, 'hours').add(horaInicioMinutos, 'minutes').format('YYYY-MM-DD HH:mm:ss');
-            var final = moment(elementc).add(horaFinHora, 'hours').add(horaFinMinutos, 'minutes').format('YYYY-MM-DD HH:mm:ss');
-            var fecha  = {"start": inicio, "end": final, "title": data.title, "backgroundColor": data.color, "borderColor": "black", "editable": false, "overlap": false, "data": data, "textColor": "black"}
+            var inicio = moment(elementc)
+              .add(horaInicioHora, "hours")
+              .add(horaInicioMinutos, "minutes")
+              .format("YYYY-MM-DD HH:mm:ss");
+            var final = moment(elementc)
+              .add(horaFinHora, "hours")
+              .add(horaFinMinutos, "minutes")
+              .format("YYYY-MM-DD HH:mm:ss");
+            var fecha = {
+              start: inicio,
+              end: final,
+              title: data.title,
+              backgroundColor: data.color,
+              borderColor: "black",
+              editable: false,
+              overlap: false,
+              data: data,
+              textColor: "black"
+            };
             _this.events.push(fecha);
-          })
-        })
+          });
+        });
+      });
+    },
+    checkInCalendar: function(data) {
+      const _this = this;
+      var fechas = [];
+      data.horarios.forEach(element => {
+        var horaInicio = formatoHora(element.hora_inicio);
+        var horaFin = formatoHora(element.hora_fin);
+        var horaInicioHora = horaInicio.split(":")[0];
+        var horaInicioMinutos = horaInicio.split(":")[1];
+        var horaFinHora = horaFin.split(":")[0];
+        var horaFinMinutos = horaFin.split(":")[1];
+        calcularFechas(element).forEach(elementb => {
+          elementb.forEach(elementc => {
+            var inicio = moment(elementc)
+              .add(horaInicioHora, "hours")
+              .add(horaInicioMinutos, "minutes")
+              .format("YYYY-MM-DD HH:mm:ss");
+            var final = moment(elementc)
+              .add(horaFinHora, "hours")
+              .add(horaFinMinutos, "minutes")
+              .format("YYYY-MM-DD HH:mm:ss");
+            var fecha = {
+              start: inicio,
+              end: final,
+              title: data.title,
+              backgroundColor: data.color,
+              borderColor: "black",
+              editable: false,
+              overlap: false,
+              data: data,
+              textColor: "black"
+            };
+            _this.events.push(fecha);
+          });
+        });
       });
     }
   }

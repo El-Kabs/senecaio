@@ -53,7 +53,16 @@ export default {
   methods: {
     seleccion: function (event){
       const _this = this;
-      this.$root.$emit("QuitarMateriaBarra", _this.datos);
+      this.$vs.dialog({
+        type: "confirm",
+        color: "danger",
+        title: _this.datos.title,
+        text: _this.datos,
+        accept: _this.delete,
+        acceptText: "Eliminar",
+        cancelText: "Cancelar"
+      });
+      
     },
     toUp: function capitalizeFirstLetter(string) {
         return string.charAt(0).toUpperCase() + string.slice(1);
@@ -65,8 +74,17 @@ export default {
         else{
             string = string.toLowerCase();
             return string.charAt(0).toUpperCase() + string.slice(1);
-        }
-            
+        }  
+    },
+    delete: function(color){
+      const _this = this;
+      this.$root.$emit("QuitarMateriaBarra", _this.datos);
+      this.$root.$emit("QuitarMateriaCalendario", _this.datos);
+      this.$vs.notify({
+        color: "danger",
+        title: "Materia eliminada",
+        text: "La materia fue eliminada."
+      });
     }
   }
 };
