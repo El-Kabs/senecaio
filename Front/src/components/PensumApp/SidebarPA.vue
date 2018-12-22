@@ -55,20 +55,25 @@ export default {
       const _this = this;
       if (_this.search.length > 3) {
         var arr = _this.materias["records"];
-        _this.resultados = arr.filter(function(item) {
+        arr = arr.filter(function(item) {
           return (
             item.depto.toUpperCase() === _this.search.toUpperCase() ||
             item.title.toUpperCase() === _this.search.toUpperCase() ||
-            item.title.toUpperCase().startsWith(_this.search.toUpperCase())
+            item.title.toUpperCase().startsWith(_this.search.toUpperCase()) ||
+            item.title.toUpperCase().includes(_this.search.toUpperCase()) ||
+            (item.depto.toUpperCase()+item.curso.toUpperCase()).startsWith(_this.search.toUpperCase())
           );
         });
-        return arr.filter(function(item) {
-          return (
-            item.depto.toUpperCase() === _this.search.toUpperCase() ||
-            item.title.toUpperCase() === _this.search.toUpperCase() ||
-            item.title.toUpperCase().startsWith(_this.search.toUpperCase())
-          );
+        let unique = [...new Set(arr)]; 
+        arr = unique;
+        var dups = [];
+        var arrb = arr.filter(function(el) {
+          if (dups.indexOf(el.nrc) == -1) {
+            return true;
+          }
+          return false;
         });
+        _this.resultados = arrb;
       }
     },
     chooseColor: function(title){

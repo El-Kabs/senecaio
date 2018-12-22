@@ -1,7 +1,11 @@
 import moment from "moment";
 
 export function formatoHora(data) {
-  return [data.slice(0, 2), ":", data.slice(2)].join("");
+  try {
+    return [data.slice(0, 2), ":", data.slice(2)].join("");
+  } catch (e) {
+    return "00:00";
+  }
 }
 
 export function darFechasPorDia(inicio, fin, dia) {
@@ -51,4 +55,56 @@ export function calcularFechas(data) {
     diasFinal.push(darFechasPorDia(fechaInicio, fechaFin, dia));
   });
   return diasFinal;
+}
+
+export function checkFechas(fechasMirar, fechasEvents) {
+  var encontrado = false;
+  for (let index = 0; index < fechasEvents.length || encontrado; index++) {
+    const element = moment(fechasEvents[index].start);
+    const elementFinal = moment(fechasEvents[index].end);
+    for (let indexb = 0; indexb < fechasMirar.length; indexb++) {
+      const elementb = moment(fechasMirar[indexb].start);
+      const elementbFinal = moment(fechasMirar[indexb].end);
+      if (element.isSame(elementb, "day")) {
+        if (element.hour() === elementb.hour()) {
+          if (element.minute() === elementb.minute()) {
+            console.log("Fechas mirar: " + fechasMirar[indexb].start);
+            console.log("Fechas eventos: " + fechasEvents[index].start);
+            encontrado = true;
+            return false;
+          }
+        }
+      }
+      else if(elementFinal.isSame(elementbFinal, "day")){
+        if (elementFinal.hour() === elementbFinal.hour()) {
+          if (elementFinal.minute() === elementbFinal.minute()) {
+            console.log("Fechas mirar: " + fechasMirar[indexb].start);
+            console.log("Fechas eventos: " + fechasEvents[index].start);
+            encontrado = true;
+            return false;
+          }
+        }
+      }else{
+        if((elementb.isAfter(element)) && (elementbFinal.isBefore(elementFinal))){
+          encontrado = true;
+          return false;
+        }
+      }
+    }
+  }
+  return true;
+}
+
+export function removeDuplicates(arr){
+  let unique = [...new Set(arr)]; 
+  arr = unique;
+  var dups = [];
+  var arrb = arr.filter(function(el) {
+    if (dups.indexOf(el.nrc) == -1) {
+      dups.push(el.nrc);
+      return true;
+    }
+    return false;
+  });
+  return arrb;
 }

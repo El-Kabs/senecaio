@@ -9,6 +9,7 @@ import vueSmoothScroll from 'vue-smooth-scroll'
 import IndexAcademical from '@/components/Academical/Index'
 import FullCalendar from 'vue-full-calendar'
 import 'fullcalendar/dist/fullcalendar.css'
+import VueCookies from 'vue-cookies'
 
 Vue.use(Router)
 Vue.use(Vuesax)
@@ -16,6 +17,9 @@ Vue.use(VueDragDrop);
 Vue.use(vueSmoothScroll);
 Vue.use(FullCalendar);
 Vue.use(require('vue-moment'));
+Vue.use(VueCookies);
+
+VueCookies.config('30d')
 
 export default new Router({
   routes: [

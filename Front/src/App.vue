@@ -25,6 +25,11 @@ export default {
       primary: "rgb(252, 221, 0)",
       success: "rgb(0, 255, 46)"
     });
+  },
+  data(){
+    return{
+      events: new Array()
+    }
   }
 };
 </script>

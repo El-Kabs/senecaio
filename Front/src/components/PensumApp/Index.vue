@@ -64,6 +64,7 @@ export default {
   mounted: function() {
     const _this = this;
     console.log(this.$refs);
+    console.log("Me abrieron")
     for (let indice = 1; indice <= _this.cuantos; indice++) {
       var poolI = {};
       poolI["titulo"] = indice + _this.placeholder;

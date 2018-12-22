@@ -56,8 +56,8 @@ export default {
         method: 'GET'
       }).then(res => res.text()).then(json => {
         console.log(json)
-        _this.datos["calificacion"] = json
-        this.$vs.dialog({
+      _this.datos["calificacion"] = json
+      _this.$vs.dialog({
         type: "confirm",
         color: "success",
         title: _this.datos.title,
@@ -73,11 +73,6 @@ export default {
       const _this = this;
       _this.datos["titulo"] = _this.titulo
       this.$root.$emit("AgregarMateriaBarra", _this.datos);
-      this.$vs.notify({
-        color: "success",
-        title: "Materia agregada",
-        text: "La materia fue agregada."
-      });
     },
     toUp: function capitalizeFirstLetter(string) {
         return string.charAt(0).toUpperCase() + string.slice(1);

@@ -1,7 +1,7 @@
 <template>
   <div class="Academical">
     <div class="Calendario">
-      <full-calendar :config="config" :events="events" @event-selected="eventSelected"/>
+      <full-calendar ref="calendar" :config="config" :events="events" @event-selected="eventSelected"/>
     </div>
   </div>
 </template>
@@ -9,13 +9,15 @@
 <script>
 import SidebarA from "@/components/Academical/SidebarA";
 import moment from "moment";
+import FullCalendar from 'vue-full-calendar'
 import {
   formatoHora,
   darFechasPorDia,
   restarInicio,
   agregarFinal,
   decidirDia,
-  calcularFechas
+  calcularFechas,
+  checkFechas
 } from "@/utils.js";
 
 export default {
@@ -36,13 +38,23 @@ export default {
         titleFormat: "DD MMMM YYYY",
         columnFormat: "dddd - D",
         defaultDate: "2019-01-21",
-        ultimoEvent: Object
+        ultimoEvent: Object,
+        overlap: false,
       },
       events: new Array()
     };
   },
   mounted: function() {
     const _this = this;
+    
+    
+    if(localStorage.academicalCalendario){
+      var arreglo = JSON.parse(localStorage.academicalCalendario);
+      for (let index = 0; index < arreglo.length; index++) {
+        const element = arreglo[index];
+        _this.events.push(element);
+      }
+    }
     _this.$root.$on("QuitarMateriaBarra", function(data) {
       var index = _this.events.indexOf(data);
       if (index > -1) {
@@ -51,6 +63,8 @@ export default {
     });
     _this.$root.$on("AgregarMateriaBarra", function(data) {
       _this.agregarFechas(data);
+      console.log("Se agregó:")
+      console.log(_this.events)
     });
     _this.$root.$on("MirarMateriaBarra", function(data) {
       _this.checkInCalendar(data);
@@ -59,18 +73,29 @@ export default {
       _this.deleteCalendar(data);
     });
   },
+  beforeDestroy: function(event){
+    const _this = this;
+    localStorage.academicalCalendario = JSON.stringify(_this.events);
+  },
+  created() {
+      window.addEventListener('beforeunload', this.salir)
+    },
   methods: {
+    salir: function(event){
+      const _this = this;
+      localStorage.academicalCalendario = JSON.stringify(_this.events);
+    },
     eventSelected: function(event) {
       const _this = this;
       _this.ultimoEvent = event;
       this.$vs.dialog({
         type: "confirm",
-        color: "danger",
-        title: event.data.title,
+        color: "primary",
+        title: "Información de "+event.data.title,
         text: event.data,
         accept: _this.delete,
-        acceptText: "Eliminar",
-        cancelText: "Cancelar"
+        acceptText: "Aceptar",
+        cancelText: ""
       });
     },
     deleteCalendar: function(data) {
@@ -101,13 +126,7 @@ export default {
       }
     },
     delete: function(color) {
-      const _this = this;
-      this.$root.$emit("QuitarMateriaCalendario", _this);
-      this.$vs.notify({
-        color: "danger",
-        title: "Materia eliminada",
-        text: "La materia fue eliminada."
-      });
+      ;
     },
     agregarFechas: function(data) {
       const _this = this;
@@ -140,10 +159,29 @@ export default {
               data: data,
               textColor: "black"
             };
-            _this.events.push(fecha);
+            fechas.push(fecha)
           });
         });
       });
+      if(checkFechas(fechas, _this.events)){
+        for (let index = 0; index < fechas.length; index++) {
+          const element = fechas[index];
+          _this.events.push(element);
+        }
+        this.$root.$emit("AgregarMateriaBarraB", data);
+        this.$vs.notify({
+          color: "success",
+          title: "Materia agregada",
+          text: "La materia fue agregada."
+        });
+      }
+      else{
+        this.$vs.notify({
+        color: "danger",
+        title: "Materia no agregada",
+        text: "La materia presenta un conflicto de horario."
+      });
+      }      
     },
     checkInCalendar: function(data) {
       const _this = this;
@@ -180,7 +218,7 @@ export default {
           });
         });
       });
-    }
+    },
   }
 };
 </script>
