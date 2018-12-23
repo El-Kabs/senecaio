@@ -6,8 +6,11 @@
             <Materia class="materia" v-for="resultado in resultados" v-bind:key="resultado.nrc+resultado.curso+resultado.title+resultado.seccion" v-bind:title="resultado.title" v-bind:datos="resultado"/>
         </vs-sidebar-group>
         <vs-sidebar-group vs-icon="search" title="Tus materias" class="sidebar-group">
-            <MateriaAdd class="materia-add" v-for="resultado in elegidas" v-bind:key="resultado.nrc+resultado.curso+resultado.title+resultado.seccion" v-bind:title="resultado.title" v-bind:datos="resultado"/>
-            <span class = "creditos">Creditos totales: {{creditos()}}</span>
+          <span class = "creditos">Creditos totales: {{creditos()}}</span><br>
+          <vs-button color="primary" v-clipboard:copy="message" v-clipboard:success="onCopy" v-clipboard:error="onError" vs-size="large" vs-type="filled" vs-icon="face" class="botonCopy" v-on:click="onCopy">
+           <b> Copiar NRC al portapapeles</b>
+          </vs-button>
+          <MateriaAdd class="materia-add" v-for="resultado in elegidas" v-bind:key="resultado.nrc+resultado.curso+resultado.title+resultado.seccion" v-bind:title="resultado.title" v-bind:datos="resultado"/>
         </vs-sidebar-group>
     </vs-sidebar>
 </template>
@@ -36,7 +39,8 @@ export default {
       colore: "#fcdd00",
       drag: false,
       elegidas: [],
-      isLoading: false
+      isLoading: false,
+      message: ""
     };
   },
   mounted: function(){
@@ -140,6 +144,28 @@ export default {
         });
         _this.resultados = arrb;
       }
+    },
+    onCopy: function (e) {
+      var copiar = ""
+      const _this = this;
+      for(let i = 0; i<_this.elegidas.length; i++){
+        copiar+=_this.elegidas[i].nrc+" "
+      }
+      _this.$copyText(copiar).then(function (e) {
+          _this.$vs.notify({
+            color: "primary",
+            title: "NRC Copiados al portapeles",
+            text: "Los NRC fueron copiados en el portapeles"
+          });
+      })
+    },
+    onError: function (e) {
+      const _this = this;
+      _this.$vs.notify({
+            color: "danger",
+            title: "Error",
+            text: "Error al copiar NRC al portapapeles"
+          });
     }
   }
 };
@@ -205,4 +231,11 @@ export default {
   text-align: left;
 }
 
+.botonCopy{
+  margin-top: 10px;
+  margin-left: auto;
+    margin-right: auto;
+    display: block;
+    color: black;
+}
 </style>

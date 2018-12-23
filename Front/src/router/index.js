@@ -12,7 +12,9 @@ import 'fullcalendar/dist/fullcalendar.css'
 import VueCookies from 'vue-cookies'
 import VModal from 'vue-js-modal'
 import VueSpinners from 'vue-spinners'
- 
+import VueClipboard from 'vue-clipboard2'
+
+VueClipboard.config.autoSetContainer = true
 
 Vue.use(Router)
 Vue.use(Vuesax)
@@ -23,6 +25,7 @@ Vue.use(require('vue-moment'));
 Vue.use(VueCookies);
 Vue.use(VModal);
 Vue.use(VueSpinners)
+Vue.use(VueClipboard)
 
 VueCookies.config('30d')
 
