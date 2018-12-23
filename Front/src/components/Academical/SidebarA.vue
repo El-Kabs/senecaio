@@ -2,6 +2,7 @@
     <vs-sidebar click-not-close :reduce="reduce" :reduce-not-hover-expand="notExpand" :hidden-background="hbackground" parent="body" default-index="1" color="primary" v-model="active">
         <vs-sidebar-group vs-icon="search" title="Buscar" class="sidebar-group">
             <vs-input vs-icon="search" placeholder="Buscar" v-model="search" class="searchinput" v-on:keyup="searchquery"/>
+            <fold v-if="isLoading" v-bind:loading="isLoading" color="#FFE080" ></fold>
             <Materia class="materia" v-for="resultado in resultados" v-bind:key="resultado.nrc+resultado.curso+resultado.title+resultado.seccion" v-bind:title="resultado.title" v-bind:datos="resultado"/>
         </vs-sidebar-group>
         <vs-sidebar-group vs-icon="search" title="Tus materias" class="sidebar-group">
@@ -34,12 +35,12 @@ export default {
       resultados: Object,
       colore: "#fcdd00",
       drag: false,
-      elegidas: []
+      elegidas: [],
+      isLoading: false
     };
   },
   mounted: function(){
     const _this = this;
-    
     if(_this.$route.path==="/Academical"){
       _this.active=true;
     }
@@ -84,6 +85,7 @@ export default {
       }
     }
     
+    _this.isLoading = true;
     fetch(
       "https://senecacupos.herokuapp.com/",
       {
@@ -94,7 +96,14 @@ export default {
       .then(json => {
         const parsed = JSON.parse(json.replace(/'/g, '"'));
         _this.materias = parsed;
+        _this.isLoading = false;
+        this.$vs.notify({
+            color: "primary",
+            title: "Materias cargadas",
+            text: "Las materias fueron cargadas"
+          });
       });
+      
   },
   methods:{
     creditos: function(){

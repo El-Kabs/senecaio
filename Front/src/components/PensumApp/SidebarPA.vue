@@ -61,7 +61,7 @@ export default {
             item.title.toUpperCase() === _this.search.toUpperCase() ||
             item.title.toUpperCase().startsWith(_this.search.toUpperCase()) ||
             item.title.toUpperCase().includes(_this.search.toUpperCase()) ||
-            (item.depto.toUpperCase()+item.curso.toUpperCase()).startsWith(_this.search.toUpperCase())
+            (item.depto.toUpperCase()+item.cod.toUpperCase()).startsWith(_this.search.toUpperCase())
           );
         });
         let unique = [...new Set(arr)]; 

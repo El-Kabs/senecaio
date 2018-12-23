@@ -10,6 +10,9 @@ import IndexAcademical from '@/components/Academical/Index'
 import FullCalendar from 'vue-full-calendar'
 import 'fullcalendar/dist/fullcalendar.css'
 import VueCookies from 'vue-cookies'
+import VModal from 'vue-js-modal'
+import VueSpinners from 'vue-spinners'
+ 
 
 Vue.use(Router)
 Vue.use(Vuesax)
@@ -18,6 +21,8 @@ Vue.use(vueSmoothScroll);
 Vue.use(FullCalendar);
 Vue.use(require('vue-moment'));
 Vue.use(VueCookies);
+Vue.use(VModal);
+Vue.use(VueSpinners)
 
 VueCookies.config('30d')
 

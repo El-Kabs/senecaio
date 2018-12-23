@@ -9,6 +9,10 @@
 </template>
 
 <script>
+import {
+  getTexto,
+  tieneComplementarias
+} from "@/utils.js";
 export default {
   data() {
     return {
@@ -55,13 +59,14 @@ export default {
       fetch(url, {
         method: 'GET'
       }).then(res => res.text()).then(json => {
-        console.log(json)
-      _this.datos["calificacion"] = json
+      _this.datos["calificacion"] = JSON.parse(json.replace(/'/g, '"'))
+      var texto = getTexto(_this.datos)
+      var tieneComplementaria = tieneComplementarias(_this.datos)
       _this.$vs.dialog({
         type: "confirm",
         color: "success",
         title: _this.datos.title,
-        text: _this.datos,
+        text: texto,
         accept: _this.accept,
         acceptText: "Agregar",
         cancelText: "Cancelar"
@@ -107,8 +112,8 @@ export default {
   margin-right: auto !important;
   margin-top: 15px;
   margin-bottom: 10px;
-  width: 176px;
-  height: 146px;
+  width: 85%;
+  height: 10%;
 }
 .botonhijodeperra:hover {
   box-shadow: 0 2px 25px -8px black !important;

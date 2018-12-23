@@ -10,14 +10,13 @@
 
 <script>
 import {
-  getTexto
+  getTexto,
+  tieneComplementarias
 } from "@/utils.js";
 export default {
   data() {
     return {
-      colorB: String,
-      h: window.innerHeight, 
-      w: window.innerWidth
+      colorB: String
     };
   },
   props: {
@@ -31,7 +30,6 @@ export default {
       var formado = _this.title
       var colors = [
         "#305473",
-        "#F2F2F2",
         "#F2E963",
         "#F2B544",
         "#F2A03D",
@@ -40,7 +38,6 @@ export default {
         "#F7E29C",
         "#A4EDE6",
         "#E1F9F7",
-        "#FFFFFF"
       ];
       var hash = 13;
       for (var i = 0; i < formado.length; i++) {
@@ -58,17 +55,30 @@ export default {
   methods: {
     seleccion: function (event){
       const _this = this;
+      var url = "http://senecacupos.herokuapp.com/profesor?profe="+_this.datos.profesores[0]
+      fetch(url, {
+        method: 'GET'
+      }).then(res => res.text()).then(json => {
+      _this.datos["calificacion"] = JSON.parse(json.replace(/'/g, '"'))
       var texto = getTexto(_this.datos)
-      this.$vs.dialog({
+      var tieneComplementaria = tieneComplementarias(_this.datos)
+      _this.$vs.dialog({
         type: "confirm",
-        color: "danger",
+        color: "success",
         title: _this.datos.title,
         text: texto,
-        accept: _this.delete,
-        acceptText: "Eliminar",
+        accept: _this.accept,
+        acceptText: "Agregar",
         cancelText: "Cancelar"
       });
       
+      })
+    },
+    accept(color) {
+      const _this = this;
+      _this.datos["titulo"] = _this.titulo
+      this.$root.$emit("AgregarMateriaBarra", _this.datos);
+      this.$root.$emit("CerrarModal", _this.datos);
     },
     toUp: function capitalizeFirstLetter(string) {
         return string.charAt(0).toUpperCase() + string.slice(1);
@@ -80,17 +90,11 @@ export default {
         else{
             string = string.toLowerCase();
             return string.charAt(0).toUpperCase() + string.slice(1);
-        }  
+        }            
     },
-    delete: function(color){
+    checkInCalendar: function (event){
       const _this = this;
-      this.$root.$emit("QuitarMateriaBarra", _this.datos);
-      this.$root.$emit("QuitarMateriaCalendario", _this.datos);
-      this.$vs.notify({
-        color: "danger",
-        title: "Materia eliminada",
-        text: "La materia fue eliminada."
-      });
+      this.$root.$emit("MirarMateriaBarra", _this.datos);
     }
   }
 };
@@ -109,7 +113,7 @@ export default {
   margin-right: auto !important;
   margin-top: 15px;
   margin-bottom: 10px;
-  width: 80%;
+  width: 85%;
   height: 10%;
 }
 .botonhijodeperra:hover {

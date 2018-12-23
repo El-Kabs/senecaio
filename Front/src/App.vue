@@ -61,6 +61,10 @@ html {
 }
 .vs-dialog {
   font-family: "Nunito", sans-serif !important;
+  white-space: pre-line;
+}
+.vs-dialog-text{
+  margin-top: -20px;
 }
 .fc-content{
   cursor: pointer;

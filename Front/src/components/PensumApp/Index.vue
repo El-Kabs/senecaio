@@ -30,7 +30,8 @@ export default {
     return {
       cuantos: 8,
       placeholder: "° Semestre",
-      pools: []
+      pools: [],
+      guardar: []
     };
   },
   methods: {
@@ -59,21 +60,32 @@ export default {
     },
     exportToJson() {
       this.$root.$emit("exportToJson", "evento");
-    }
+    },
+    salir: function(event){
+      this.$root.$emit("exportToJson", "evento");
+      const _this = this;
+      localStorage.pensumApp = JSON.stringify(_this.guardar);
+    },
   },
+  beforeDestroy: function(event){
+    this.$root.$emit("exportToJson", "evento");
+    const _this = this;
+    localStorage.pensumApp = JSON.stringify(_this.guardar);
+  },
+  created() {
+      window.addEventListener('beforeunload', this.salir)
+    },
   mounted: function() {
     const _this = this;
     console.log(this.$refs);
-    console.log("Me abrieron")
     for (let indice = 1; indice <= _this.cuantos; indice++) {
       var poolI = {};
       poolI["titulo"] = indice + _this.placeholder;
-      console.log(poolI);
       _this.pools.push(poolI);
     }
 
     _this.$root.$on("exportFinal", function(data) {
-      console.log(data);
+      _this.guardar.push(data);
     });
   }
 };

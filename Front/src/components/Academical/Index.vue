@@ -1,5 +1,7 @@
 <template>
   <div class="Academical">
+    <Modal>
+    </Modal>
     <div class="Calendario">
       <full-calendar ref="calendar" :config="config" :events="events" @event-selected="eventSelected"/>
     </div>
@@ -10,6 +12,8 @@
 import SidebarA from "@/components/Academical/SidebarA";
 import moment from "moment";
 import FullCalendar from 'vue-full-calendar'
+import Modal from '@/components/Academical/Base/ModalCompl'
+import VModal from 'vue-js-modal'
 import {
   formatoHora,
   darFechasPorDia,
@@ -17,11 +21,16 @@ import {
   agregarFinal,
   decidirDia,
   calcularFechas,
-  checkFechas
+  checkFechas,
+  getTexto,
+  tieneComplementarias
 } from "@/utils.js";
 
 export default {
   name: "IndexAcademical",
+  components: {
+    Modal
+  },
   data() {
     return {
       config: {
@@ -63,8 +72,6 @@ export default {
     });
     _this.$root.$on("AgregarMateriaBarra", function(data) {
       _this.agregarFechas(data);
-      console.log("Se agregó:")
-      console.log(_this.events)
     });
     _this.$root.$on("MirarMateriaBarra", function(data) {
       _this.checkInCalendar(data);
@@ -88,14 +95,15 @@ export default {
     eventSelected: function(event) {
       const _this = this;
       _this.ultimoEvent = event;
+      var texto = getTexto(event.data);
       this.$vs.dialog({
         type: "confirm",
         color: "primary",
         title: "Información de "+event.data.title,
-        text: event.data,
+        text: texto,
         accept: _this.delete,
-        acceptText: "Aceptar",
-        cancelText: ""
+        acceptText: "Abrir en losestudiantes.co",
+        cancelText: "Cancelar"
       });
     },
     deleteCalendar: function(data) {
@@ -126,7 +134,10 @@ export default {
       }
     },
     delete: function(color) {
-      ;
+      let url = ""
+      const _this = this;
+      url = 'https://losestudiantes.co/universidad-de-los-andes/'+_this.ultimoEvent.data.calificacion.depto+'/profesores/'+_this.ultimoEvent.data.calificacion.prof
+      window.open(url,'_blank');
     },
     agregarFechas: function(data) {
       const _this = this;
@@ -163,19 +174,34 @@ export default {
           });
         });
       });
-      if(checkFechas(fechas, _this.events)){
+      let chequeo = checkFechas(fechas, _this.events)
+      let chequeoTwo = tieneComplementarias(data);
+
+      if(chequeo){
         for (let index = 0; index < fechas.length; index++) {
           const element = fechas[index];
           _this.events.push(element);
         }
-        this.$root.$emit("AgregarMateriaBarraB", data);
-        this.$vs.notify({
-          color: "success",
-          title: "Materia agregada",
-          text: "La materia fue agregada."
-        });
+        if(chequeoTwo){
+          console.log("Segundo chequeo")
+          this.$modal.show('error-modal', {'complementarias': data.compl});
+          this.$root.$emit("AgregarMateriaBarraB", data);
+          this.$vs.notify({
+            color: "success",
+            title: "Materia agregada",
+            text: "La materia fue agregada."
+          });
+        }
+        else{
+          this.$root.$emit("AgregarMateriaBarraB", data);
+          this.$vs.notify({
+            color: "success",
+            title: "Materia agregada",
+            text: "La materia fue agregada."
+          });
+        }
       }
-      else{
+      else if(!chequeo){
         this.$vs.notify({
         color: "danger",
         title: "Materia no agregada",
