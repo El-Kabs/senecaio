@@ -1,5 +1,9 @@
 <template>
   <div class="Academical">
+    <vue-headful
+            title="Seneca.io - Academical"
+            description="Seneca.io - Academical"
+        />
     <Modal>
     </Modal>
     <div class="Calendario">
@@ -183,7 +187,6 @@ export default {
           _this.events.push(element);
         }
         if(chequeoTwo){
-          console.log("Segundo chequeo")
           this.$modal.show('error-modal', {'complementarias': data.compl});
           this.$root.$emit("AgregarMateriaBarraB", data);
           this.$vs.notify({

@@ -65,7 +65,6 @@ export default {
       _this.elegidas = []
     });
     _this.$root.$on("AgregarMateriaBarraB", function(data){
-      console.log("Entró a agregar materia a barra")
       _this.elegidas.push(data);
       var arre = _this.elegidas
       arre = removeDuplicates(arre);
@@ -86,7 +85,6 @@ export default {
       var arreglo = JSON.parse(localStorage.academical);
       for (let index = 0; index < arreglo.length; index++) {
         const element = arreglo[index];
-        console.log("ANTES DE")
         _this.$root.$emit("AgregarMateriaBarraB", element);
       }
     }

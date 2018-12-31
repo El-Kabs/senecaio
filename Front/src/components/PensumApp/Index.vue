@@ -1,5 +1,11 @@
 <template>
     <div class="PensumApp">
+
+      <vue-headful
+            title="Seneca.io - PensumApp"
+            description="Seneca.io - PensumApp"
+        />
+
         <h1>PensumApp</h1>
         
         <Pool v-bind:titulo=element.titulo v-for="element in pools" v-bind:key="element.titulo"/>
@@ -81,9 +87,7 @@ export default {
       poolI["titulo"] = indice + _this.placeholder;
       _this.pools.push(poolI);
     }
-
-    console.log(_this.pools)
-    
+  
 
     _this.$root.$on("exportFinal", function(data) {
       _this.guardar.push(data);

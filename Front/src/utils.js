@@ -75,8 +75,6 @@ export function checkFechas(fechasMirar, fechasEvents) {
           moment(fechasMirar[indexb].end) <= moment(fechasEvents[index].start)
         )
       ) {
-        console.log("Fechas mirar: " + fechasMirar[indexb].start);
-        console.log("Fechas eventos: " + fechasEvents[index].start);
         return false;
       }
     }
@@ -108,15 +106,12 @@ export function darTiempo(tiempo) {
 }
 
 export function removeDuplicatesTitle(arr) {
-  console.log(arr);
   let unique = [...new Set(arr)];
-  console.log(unique);
   arr = unique;
   var dups = [];
   var arrb = arr.filter(function(el) {
     if (dups.indexOf(el.title + el.semestre) == -1) {
       dups.push(el.title + el.semestre);
-      console.log(dups);
       return true;
     }
     return false;
@@ -155,7 +150,6 @@ export function getTexto(data) {
   var core = "";
   var tipo = "";
   var horarios = "";
-  console.log(data);
   for (let i = 0; i < data.prereq.length; i++) {
     prer += data.prereq[i];
   }
@@ -211,7 +205,6 @@ export function getTexto(data) {
   }
   let compleme = "";
   for (let index = 0; index < data.compl.length; index++) {
-    console.log(data.compl[index]);
     compleme += "NRC " + data.compl[index] + ", ";
   }
   compleme = compleme.substring(0, compleme.length - 2);
@@ -240,7 +233,6 @@ export function getTexto(data) {
 }
 
 export function tieneComplementarias(data) {
-  console.log(data);
   if (data.compl.length >= 1) {
     return true;
   } else return false;

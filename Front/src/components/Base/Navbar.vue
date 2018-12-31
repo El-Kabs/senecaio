@@ -30,19 +30,15 @@ export default {
   }),
   methods: {
     openSidebar() {
-      console.log("Abrir PensumApp")
       this.$root.$emit("openSidebar", "evento");
     },
     closeSidebar() {
-      console.log("Cerrar PensumApp")
       this.$root.$emit("closeSidebar", "evento");
     },
     openSidebarA() {
-      console.log("Abrir Academical")
       this.$root.$emit("openSidebarA", "evento");
     },
     closeSidebarA() {
-      console.log("Cerrar Academical")
       this.$root.$emit("closeSidebarA", "evento");
     },
     sobreCupo() {

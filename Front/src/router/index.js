@@ -13,6 +13,7 @@ import VueCookies from 'vue-cookies'
 import VModal from 'vue-js-modal'
 import VueSpinners from 'vue-spinners'
 import VueClipboard from 'vue-clipboard2'
+import vueHeadful from 'vue-headful';
 
 
 VueClipboard.config.autoSetContainer = true
@@ -27,6 +28,8 @@ Vue.use(VueCookies);
 Vue.use(VModal);
 Vue.use(VueSpinners)
 Vue.use(VueClipboard)
+
+Vue.component('vue-headful', vueHeadful);
 
 VueCookies.config('30d')
 

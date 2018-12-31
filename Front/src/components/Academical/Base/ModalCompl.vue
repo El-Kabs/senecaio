@@ -48,7 +48,6 @@ export default {
   methods: {
     beforeOpen (event) {
         const _this = this;
-        console.log(_this.isLoading)
         this.complementarias = event.params.complementarias
         fetch(
         "https://senecacupos.herokuapp.com/",

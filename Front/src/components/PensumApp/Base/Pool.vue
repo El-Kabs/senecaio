@@ -180,7 +180,6 @@ export default {
             }
           }
           if (bool === false) {
-            console.log("Agregar a: " + _this.titulo);
             _this.addMateria(data);
           }
         }
@@ -225,7 +224,6 @@ export default {
             indice = index
           }
         }
-        console.log(indice)
         if(indice > -1){
           arr.splice(indice, 1)
         }

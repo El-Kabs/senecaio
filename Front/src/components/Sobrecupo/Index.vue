@@ -1,5 +1,11 @@
 <template>
   <div>
+
+    <vue-headful
+            title="Seneca.io - Sobrecupo"
+            description="Seneca.io - Sobrecupo"
+        />
+        
     <h1>Sobrecupo</h1>
 
     <div class="content">
