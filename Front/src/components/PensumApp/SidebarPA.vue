@@ -2,6 +2,7 @@
     <vs-sidebar click-not-close :reduce="reduce" :reduce-not-hover-expand="notExpand" :hidden-background="hbackground" parent="body" default-index="1" color="primary" v-model="active">
         <vs-sidebar-group icon="search" title="Buscar" class="sidebar-group">
             <vs-input icon="search" placeholder="Buscar" v-model="search" class="searchinput" v-on:keyup="searchquery"/>
+            <fold v-if="isLoading" v-bind:loading="isLoading" color="#FFE080" ></fold>
             <Materia class="materia" v-for="resultado in resultados" v-bind:key="resultado.cod+resultado.title" v-bind:title="resultado.title" v-bind:datos="resultado" v-bind:drag="drag"/>
         </vs-sidebar-group>
     </vs-sidebar>
@@ -25,6 +26,7 @@ export default {
       materias: Object,
       resultados: Object,
       drag: true,
+      isLoading: false
     };
   },
   mounted: function() {
@@ -39,7 +41,7 @@ export default {
       _this.active = false;
     });
     fetch(
-      "https://raw.githubusercontent.com/El-Kabs/pensumapp2/master/scrap/materiasFinal.json",
+      "https://senecacupos.herokuapp.com/pensum",
       {
         method: "GET"
       }
@@ -48,6 +50,7 @@ export default {
       .then(json => {
         const parsed = JSON.parse(json.replace(/'/g, '"'));
         _this.materias = parsed;
+        _this.isLoading = false;
       });
   },
   methods: {

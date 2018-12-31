@@ -9,6 +9,7 @@
     <h1>Sobrecupo</h1>
 
     <div class="content">
+      <fold v-if="isLoading" v-bind:loading="isLoading" color="#FFE080" ></fold>
       <radial-progress-bar
         v-for="(salon, index) of salones"
         :key="index"
@@ -49,7 +50,8 @@ export default {
       innerStrokeColor: "#fff8d6",
       startColor: "#e5c200",
       stopColor: "#ffe032",
-      tiempos: []
+      tiempos: [],
+      isLoading: false
     };
   },
   methods: {
@@ -96,6 +98,7 @@ export default {
   },
   mounted: function() {
     const _this = this;
+    _this.isLoading = true;
     fetch("https://sobrecupo-salones.herokuapp.com/biblioteca", {
       method: "GET"
     })
@@ -109,6 +112,7 @@ export default {
             var time = {"salon": key, "tiempo": tiempo}
             _this.tiempos.push(time)
         }
+        _this.isLoading = false;
       });
       setInterval(function() {
         for(let index = 0; index<_this.tiempos.length; index++){

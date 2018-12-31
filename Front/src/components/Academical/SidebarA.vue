@@ -98,7 +98,7 @@ export default {
     )
       .then(res => res.text())
       .then(json => {
-        const parsed = JSON.parse(json.replace(/'/g, '"'));
+        const parsed = JSON.parse(json.replace(/'/g, '"').replace('\xa0', ' '));
         _this.materias = parsed;
         _this.isLoading = false;
         this.$vs.notify({

@@ -55,7 +55,7 @@ export default {
   methods: {
     seleccion: function (event){
       const _this = this;
-      var url = "http://senecacupos.herokuapp.com/profesor?profe="+_this.datos.profesores[0]
+      var url = "https://senecacupos.herokuapp.com/profesor?profe="+_this.datos.profesores[0]
       fetch(url, {
         method: 'GET'
       }).then(res => res.text()).then(json => {

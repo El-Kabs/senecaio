@@ -16,6 +16,8 @@ import VueClipboard from 'vue-clipboard2'
 import vueHeadful from 'vue-headful';
 
 
+
+
 VueClipboard.config.autoSetContainer = true
 
 Vue.use(Router)
@@ -28,6 +30,8 @@ Vue.use(VueCookies);
 Vue.use(VModal);
 Vue.use(VueSpinners)
 Vue.use(VueClipboard)
+
+
 
 Vue.component('vue-headful', vueHeadful);
 
