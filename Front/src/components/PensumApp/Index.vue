@@ -4,11 +4,10 @@
         
         <Pool v-bind:titulo=element.titulo v-for="element in pools" v-bind:key="element.titulo"/>
         <div class = "botones">
-          <vs-button color="danger" vs-size="large" vs-type="filled" vs-icon="face" class="botonAddSem" v-on:click="exportToJson"></vs-button>
           <a href="#PensumApp" v-smooth-scroll="{ duration: 2000, offset:-50 }">
-          <vs-button id="PensumApp" color="danger" vs-size="large" vs-type="filled" vs-icon="add" class="botonAddSem"  v-on:click="addSemestre"></vs-button>
+          <vs-button id="PensumApp" color="danger" vs-size="large" vs-type="filled" icon="add" class="botonAddSem"  v-on:click="addSemestre"></vs-button>
           </a>
-          <vs-button color="danger" vs-size="large" vs-type="filled" vs-icon="remove" class="botonRemSem" v-on:click="removeSemestre"></vs-button>
+          <vs-button color="danger" vs-size="large" vs-type="filled" icon="remove" class="botonRemSem" v-on:click="removeSemestre"></vs-button>
         </div>
     </div>
 </template>
@@ -18,6 +17,7 @@ import SidebarPA from "@/components/PensumApp/SidebarPA";
 import Espacio from "@/components/PensumApp/Base/Espacio";
 import Materia from "@/components/PensumApp/Base/Materia";
 import Pool from "@/components/PensumApp/Base/Pool";
+import {removeDuplicatesTitle} from "@/utils.js";
 export default {
   name: "IndexPensum",
   components: {
@@ -58,31 +58,32 @@ export default {
         _this.pools.push(poolI);
       }
     },
-    exportToJson() {
-      this.$root.$emit("exportToJson", "evento");
-    },
-    salir: function(event){
-      this.$root.$emit("exportToJson", "evento");
-      const _this = this;
-      localStorage.pensumApp = JSON.stringify(_this.guardar);
+  salir: function(event){
+    const _this = this;
     },
   },
   beforeDestroy: function(event){
-    this.$root.$emit("exportToJson", "evento");
     const _this = this;
-    localStorage.pensumApp = JSON.stringify(_this.guardar);
   },
   created() {
       window.addEventListener('beforeunload', this.salir)
     },
   mounted: function() {
     const _this = this;
-    console.log(this.$refs);
+    
+
+    if(localStorage.pensumAppN){
+      _this.cuantos = localStorage.pensumAppN
+    }
+
     for (let indice = 1; indice <= _this.cuantos; indice++) {
       var poolI = {};
       poolI["titulo"] = indice + _this.placeholder;
       _this.pools.push(poolI);
     }
+
+    console.log(_this.pools)
+    
 
     _this.$root.$on("exportFinal", function(data) {
       _this.guardar.push(data);

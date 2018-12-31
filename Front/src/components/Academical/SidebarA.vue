@@ -1,16 +1,18 @@
 <template>
     <vs-sidebar click-not-close :reduce="reduce" :reduce-not-hover-expand="notExpand" :hidden-background="hbackground" parent="body" default-index="1" color="primary" v-model="active">
-        <vs-sidebar-group vs-icon="search" title="Buscar" class="sidebar-group">
-            <vs-input vs-icon="search" placeholder="Buscar" v-model="search" class="searchinput" v-on:keyup="searchquery"/>
+        <vs-sidebar-group icon="search" title="Buscar" class="sidebar-group">
+            <vs-input icon="search" placeholder="Buscar" v-model="search" class="searchinput" v-on:keyup="searchquery"/>
             <fold v-if="isLoading" v-bind:loading="isLoading" color="#FFE080" ></fold>
             <Materia class="materia" v-for="resultado in resultados" v-bind:key="resultado.nrc+resultado.curso+resultado.title+resultado.seccion" v-bind:title="resultado.title" v-bind:datos="resultado"/>
         </vs-sidebar-group>
-        <vs-sidebar-group vs-icon="search" title="Tus materias" class="sidebar-group">
+        <vs-sidebar-group icon="search" title="Tus materias" class="sidebar-group">
           <span class = "creditos">Creditos totales: {{creditos()}}</span><br>
           <vs-button color="primary" v-clipboard:copy="message" v-clipboard:success="onCopy" v-clipboard:error="onError" vs-size="large" vs-type="filled" vs-icon="face" class="botonCopy" v-on:click="onCopy">
            <b> Copiar NRC al portapapeles</b>
           </vs-button>
           <MateriaAdd class="materia-add" v-for="resultado in elegidas" v-bind:key="resultado.nrc+resultado.curso+resultado.title+resultado.seccion" v-bind:title="resultado.title" v-bind:datos="resultado"/>
+        </vs-sidebar-group>
+        <vs-sidebar-group icon="search" title="Tus planes" class="sidebar-group">
         </vs-sidebar-group>
     </vs-sidebar>
 </template>

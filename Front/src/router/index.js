@@ -1,18 +1,19 @@
 import Vue from 'vue'
 import 'material-icons/iconfont/material-icons.css';
 import Router from 'vue-router'
-import Sobrecupo from '@/components/HelloWorld'
 import IndexPensum from '@/components/PensumApp/Index'
 import Vuesax from 'vuesax'
 import VueDragDrop from 'vue-drag-drop';
 import vueSmoothScroll from 'vue-smooth-scroll'
 import IndexAcademical from '@/components/Academical/Index'
+import IndexSobrecupo from '@/components/Sobrecupo/Index'
 import FullCalendar from 'vue-full-calendar'
 import 'fullcalendar/dist/fullcalendar.css'
 import VueCookies from 'vue-cookies'
 import VModal from 'vue-js-modal'
 import VueSpinners from 'vue-spinners'
 import VueClipboard from 'vue-clipboard2'
+
 
 VueClipboard.config.autoSetContainer = true
 
@@ -34,7 +35,7 @@ export default new Router({
     {
       path: '/',
       name: 'Sobrecupo',
-      component: Sobrecupo,
+      component: IndexSobrecupo,
       meta:{
         title: 'Seneca.io - Sobrecupo'
       }

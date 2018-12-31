@@ -4,7 +4,7 @@
 
 <script>
 export default {
-    methods: {
+  methods: {
     handleDrop(data, event) {
       data["titulo"] = this.titulo;
       data["indice"] = this.indice;
