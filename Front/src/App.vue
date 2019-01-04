@@ -3,9 +3,10 @@
     <Navbar/>
     <SidebarPA/>
     <SidebarA/>
-    <vs-button radius class="informacion" color="rgb(97, 150, 237)" vs-size="large" vs-type="filled" icon="help" v-on:click="abrirModal"></vs-button>
+    
     <Modal>
     </Modal>
+    <vs-button radius class="informacion" color="rgb(97, 150, 237)" vs-size="large" vs-type="filled" icon="help" v-on:click="abrirModal"></vs-button>
     <router-view/>
   </div>
 </template>
@@ -81,9 +82,9 @@ html {
   cursor: pointer;
 }
 .informacion{
-  position:fixed;
-  bottom:0;
-  right:0;
-  width: 100%;
+  position:fixed !important;
+  bottom:0 !important;
+  right:0 !important;
+  width:100% !important;
 }
 </style>
