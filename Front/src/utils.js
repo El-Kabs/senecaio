@@ -30,10 +30,10 @@ export function darFechasPorDia(inicio, fin, dia) {
   return result;
 }
 export function restarInicio(fecha) {
-  return moment(fecha).subtract(7, "d");
+  return moment(fecha, ["DD-MMM-YYYY", "D-MMM-YYYY"]).subtract(7, "d");
 }
 export function agregarFinal(fecha) {
-  return moment(fecha).add(1, "d");
+  return moment(fecha, ["DD-MMM-YYYY", "D-MMM-YYYY"]).add(1, "d");
 }
 export function decidirDia(dia) {
   if (dia === "L") {

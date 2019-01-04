@@ -14,7 +14,8 @@ import VModal from 'vue-js-modal'
 import VueSpinners from 'vue-spinners'
 import VueClipboard from 'vue-clipboard2'
 import vueHeadful from 'vue-headful';
-
+import VueCarousel from 'vue-carousel';
+import Icon from 'vue-awesome/components/Icon'
 
 
 
@@ -28,8 +29,10 @@ Vue.use(FullCalendar);
 Vue.use(require('vue-moment'));
 Vue.use(VueCookies);
 Vue.use(VModal);
-Vue.use(VueSpinners)
-Vue.use(VueClipboard)
+Vue.use(VueSpinners);
+Vue.use(VueClipboard);
+Vue.use(VueCarousel);
+Vue.component('v-icon', Icon)
 
 
 

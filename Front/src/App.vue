@@ -3,6 +3,9 @@
     <Navbar/>
     <SidebarPA/>
     <SidebarA/>
+    <vs-button radius class="informacion" color="rgb(97, 150, 237)" vs-size="large" vs-type="filled" icon="help" v-on:click="abrirModal"></vs-button>
+    <Modal>
+    </Modal>
     <router-view/>
   </div>
 </template>
@@ -12,12 +15,15 @@ import Sidebar from "@/components/Base/Sidebar";
 import Navbar from "@/components/Base/Navbar";
 import SidebarPA from "@/components/PensumApp/SidebarPA"
 import SidebarA from "@/components/Academical/SidebarA"
+import Modal from '@/components/Base/InfoModal'
+import VModal from 'vue-js-modal'
 export default {
   components: {
     Sidebar,
     Navbar,
     SidebarPA,
-    SidebarA
+    SidebarA,
+    Modal
   },
   name: "App",
   mounted: function() {
@@ -29,6 +35,11 @@ export default {
   data(){
     return{
       events: new Array()
+    }
+  },
+  methods:{
+    abrirModal(){
+      this.$modal.show('info-modal');
     }
   }
 };
@@ -68,5 +79,11 @@ html {
 }
 .fc-content{
   cursor: pointer;
+}
+.informacion{
+  position:fixed;
+  bottom:0;
+  right:0;
+  width: 100%;
 }
 </style>
