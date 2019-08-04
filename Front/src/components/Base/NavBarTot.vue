@@ -1,0 +1,61 @@
+<template>
+  <div class="con-type-example">
+
+    <vs-select
+    class="selectExample"
+      label="Figuras"
+      v-model="type"
+      >
+      <vs-select-item :key="index" :vs-value="item.value" :vs-text="item.text" v-for="(item,index) in types" />
+    </vs-select>
+
+    <vs-navbar :type="type" v-model="activeItem" class="nabarx">
+      <vs-button vs-type="flat" vs-radius="50%" vs-icon="menu"></vs-button>
+
+      <vs-navbar-title>
+        Type {{type}}
+      </vs-navbar-title>
+
+      <vs-spacer></vs-spacer>
+
+      <vs-navbar-item index="0">
+        <a href="#">Sobrecupo</a>
+      </vs-navbar-item>
+      <vs-navbar-item index="1">
+        <a href="#">Academical</a>
+      </vs-navbar-item>
+      <vs-navbar-item index="2">
+        <a href="#">PensumApp </a>
+      </vs-navbar-item>
+    </vs-navbar>
+  </div>
+</template>
+<script>
+import {isAuth} from '@/authUtils.js'
+export default {
+  data:()=>({
+    activeItem: 0,
+    type: 'flat',
+    types: [
+      {
+        value: null, text: 'Default'
+      },
+      {
+        value: 'flat', text: 'Flat'
+      },
+      {
+        value: 'fund', text: 'Fund'
+      },
+      {
+        value: 'border', text: 'border'
+      },
+      {
+        value: 'gradient', text: 'Gradient'
+      },
+      {
+        value: 'shadow', text: 'Shadow'
+      }
+    ]
+  })
+}
+</script>
