@@ -42,7 +42,6 @@ export default {
   },
   data() {
     return {
-      msg: "Welcome to Your Vue.js App",
       salones: "",
       draggable: "Drag Me",
       completedSteps: 60,
@@ -114,6 +113,16 @@ export default {
         }
         _this.isLoading = false;
       });
+
+    fetch("https://raw.githubusercontent.com/El-Kabs/senecaio/master/Back/Sobrecupo/calendario.json", {
+      method: "GET"
+    })
+    .then(res => res.text())
+    .then(json => {
+      const parsed = JSON.parse(json.replace(/'/g, '"'));
+      console.log(parsed)
+    })
+
       setInterval(function() {
         for(let index = 0; index<_this.tiempos.length; index++){
           const element = _this.tiempos[index]
