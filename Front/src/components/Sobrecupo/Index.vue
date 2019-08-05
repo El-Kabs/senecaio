@@ -1,15 +1,11 @@
 <template>
   <div>
+    <vue-headful title="Seneca.io - Sobrecupo" description="Seneca.io - Sobrecupo" />
 
-    <vue-headful
-            title="Seneca.io - Sobrecupo"
-            description="Seneca.io - Sobrecupo"
-        />
-        
     <h1>Sobrecupo</h1>
 
     <div class="content">
-      <fold v-if="isLoading" v-bind:loading="isLoading" color="#FFE080" ></fold>
+      <fold v-if="isLoading" v-bind:loading="isLoading" color="#FFE080"></fold>
       <radial-progress-bar
         v-for="(salon, index) of salones"
         :key="index"
@@ -20,7 +16,9 @@
         :startColor="startColor"
         :stopColor="stopColor"
       >
-        <p><b>{{index}}</b></p>
+        <p>
+          <b>{{index.replace('_', '')}}</b>
+        </p>
         {{getTime(index)}}
       </radial-progress-bar>
     </div>
@@ -31,7 +29,7 @@
 import Sidebar from "@/components/Base/Sidebar";
 import Navbar from "@/components/Base/Navbar";
 import RadialProgressBar from "vue-radial-progress";
-import {darTiempo} from "@/utils.js";
+import { darTiempo } from "@/utils.js";
 
 export default {
   name: "Sobrecupo",
@@ -59,37 +57,32 @@ export default {
     },
     getTime(indice) {
       const _this = this;
-      let arr = _this.tiempos
-      for(let index = 0; index<_this.tiempos.length; index++){
-        const element = _this.tiempos[index]
-        if(indice === element.salon){
-          if(element.tiempo === 0){
-            return "Disponible"
-          }
-          else{
-            return element.tiempo + " Minutos"
+      let arr = _this.tiempos;
+      for (let index = 0; index < _this.tiempos.length; index++) {
+        const element = _this.tiempos[index];
+        if (indice === element.salon) {
+          if (element.tiempo === 0) {
+            return "Disponible";
+          } else {
+            return element.tiempo + " Minutos";
           }
         }
       }
     },
-    darTime(indice){
+    darTime(indice) {
       const _this = this;
-      let arr = _this.tiempos
-      for(let index = 0; index<_this.tiempos.length; index++){
-        const element = _this.tiempos[index]
-        if(indice === element.salon){
-          if(element.tiempo === 0){
-            return 0
-          }
-          else{
-            if(element.tiempo>60){
-              return 60
-            }
-            else if(element.tiempo<0){
-              return 0
-            }
-            else
-              return parseInt(element.tiempo)
+      let arr = _this.tiempos;
+      for (let index = 0; index < _this.tiempos.length; index++) {
+        const element = _this.tiempos[index];
+        if (indice === element.salon) {
+          if (element.tiempo === 0) {
+            return 0;
+          } else {
+            if (element.tiempo > 60) {
+              return 60;
+            } else if (element.tiempo < 0) {
+              return 0;
+            } else return parseInt(element.tiempo);
           }
         }
       }
@@ -98,43 +91,62 @@ export default {
   mounted: function() {
     const _this = this;
     _this.isLoading = true;
+    fetch(
+      "https://raw.githubusercontent.com/El-Kabs/senecaio/master/Back/Sobrecupo/calendario.json",
+      {
+        method: "GET"
+      }
+    )
+      .then(res => res.text())
+      .then(json => {
+        const parsed = JSON.parse(json.replace(/'/g, '"'));
+        _this.salones = parsed;
+        console.log(parsed)
+        for (var key in _this.salones) {
+          const element = _this.salones[key];
+          var tiempo = darTiempo("Disponible");
+          var time = { salon: key.replace("_", ""), tiempo: tiempo };
+          _this.tiempos.push(time);
+        }
+      });
     fetch("https://sobrecupo-salones.herokuapp.com/biblioteca", {
       method: "GET"
     })
       .then(res => res.text())
       .then(json => {
         const parsed = JSON.parse(json.replace(/'/g, '"'));
-        _this.salones = parsed;
-        for (var key in _this.salones){
-            const element = _this.salones[key]
-            var tiempo = darTiempo(element.Tiempo)
-            var time = {"salon": key, "tiempo": tiempo}
-            _this.tiempos.push(time)
+        console.log(parsed)
+        for (var key in parsed) {
+          if (parsed.hasOwnProperty(key)) {
+            _this.salones.key = parsed[key];
+          }
         }
+        for (var key in _this.salones) {
+          const element = _this.salones[key];
+          console.log(element)
+          var tiempo = darTiempo(element.Tiempo);
+          var time = { salon: key, tiempo: tiempo };
+          _this.tiempos.push(time);
+        }
+      })
+
+      .then(res => {
+        console.log("ACABÓ");
         _this.isLoading = false;
       });
 
-    fetch("https://raw.githubusercontent.com/El-Kabs/senecaio/master/Back/Sobrecupo/calendario.json", {
-      method: "GET"
-    })
-    .then(res => res.text())
-    .then(json => {
-      const parsed = JSON.parse(json.replace(/'/g, '"'));
-      console.log(parsed)
-    })
-
-      setInterval(function() {
-        for(let index = 0; index<_this.tiempos.length; index++){
-          const element = _this.tiempos[index]
-          let tiempo = element.tiempo
-          if(tiempo===0){}
-          else{
-            tiempo = tiempo - 1;
-          }
-          element.tiempo = tiempo
-          _this.tiempos[index] = element
+    setInterval(function() {
+      for (let index = 0; index < _this.tiempos.length; index++) {
+        const element = _this.tiempos[index];
+        let tiempo = element.tiempo;
+        if (tiempo === 0) {
+        } else {
+          tiempo = tiempo - 1;
         }
-      }, 10 * 1000);
+        element.tiempo = tiempo;
+        _this.tiempos[index] = element;
+      }
+    }, 10 * 1000);
   }
 };
 </script>
