@@ -1,25 +1,35 @@
 <template>
   <div>
     <vue-headful title="Seneca.io - Sobrecupo" description="Seneca.io - Sobrecupo" />
-
     <h1>Sobrecupo</h1>
+    <vs-dropdown v-if="!isLoading">
+      
+      <a href="#">
+        {{this.elegido}}
+        <vs-icon class="btn-drop" icon="expand_more"></vs-icon>
+      </a>
 
+      <vs-dropdown-menu class="dropdown">
+        <vs-dropdown-item class="itemDrop" v-bind:key="prefix" v-for="(prefix) of prefix" v-on:click="opcion(prefix)">{{prefix}}</vs-dropdown-item>
+      </vs-dropdown-menu>
+    </vs-dropdown>
     <div class="content">
       <fold v-if="isLoading" v-bind:loading="isLoading" color="#FFE080"></fold>
+
       <radial-progress-bar
-        v-for="(salon, index) of salones"
+        v-for="(salon, index) of salonesMostrar"
         :key="index"
         :diameter="175"
-        :completed-steps="darTime(index)"
+        :completed-steps="darTime(salon.salon)"
         :total-steps="totalSteps"
         :innerStrokeColor="innerStrokeColor"
         :startColor="startColor"
         :stopColor="stopColor"
       >
         <p>
-          <b>{{index.replace('_', '')}}</b>
+          <b>{{salon.salon.replace('_', '')}}</b>
         </p>
-        {{getTime(index)}}
+        {{getTime(salon.salon)}}
       </radial-progress-bar>
     </div>
   </div>
@@ -29,7 +39,8 @@
 import Sidebar from "@/components/Base/Sidebar";
 import Navbar from "@/components/Base/Navbar";
 import RadialProgressBar from "vue-radial-progress";
-import { darTiempo } from "@/utils.js";
+import { darTiempo, darTiempoRestante } from "@/utils.js";
+
 
 export default {
   name: "Sobrecupo",
@@ -48,10 +59,36 @@ export default {
       startColor: "#e5c200",
       stopColor: "#ffe032",
       tiempos: [],
-      isLoading: false
+      isLoading: false,
+      elegido: "Elige un edificio",
+      salonesMostrar: [],
+      prefix: []
     };
   },
   methods: {
+    opcion(edificio) {
+      const _this = this;
+      _this.elegido = edificio;
+      _this.salonesMostrar = [];
+      var salonesAux = _this.salones;
+      var salonesMostrarAux = [];
+      for (var key in salonesAux) {
+        if (key.startsWith(edificio)) {
+          salonesAux[key]["salon"] = key.replace("_", "");
+          salonesMostrarAux.push(salonesAux[key]);
+        }
+      }
+      salonesMostrarAux.sort(function(a, b) {
+        if (a.salon < b.salon) {
+          return -1;
+        }
+        if (a.salon > b.salon) {
+          return 1;
+        }
+        return 0;
+      });
+      _this.salonesMostrar = salonesMostrarAux;
+    },
     handleDrop(data, event) {
       alert(`You dropped with data: ${JSON.stringify(data)}`);
     },
@@ -91,48 +128,62 @@ export default {
   mounted: function() {
     const _this = this;
     _this.isLoading = true;
-    fetch(
-      "https://raw.githubusercontent.com/El-Kabs/senecaio/master/Back/Sobrecupo/calendario.json",
-      {
-        method: "GET"
-      }
-    )
-      .then(res => res.text())
-      .then(json => {
-        const parsed = JSON.parse(json.replace(/'/g, '"'));
-        _this.salones = parsed;
-        console.log(parsed)
-        for (var key in _this.salones) {
-          const element = _this.salones[key];
-          var tiempo = darTiempo("Disponible");
-          var time = { salon: key.replace("_", ""), tiempo: tiempo };
-          _this.tiempos.push(time);
-        }
-      });
     fetch("https://sobrecupo-salones.herokuapp.com/biblioteca", {
       method: "GET"
     })
       .then(res => res.text())
       .then(json => {
         const parsed = JSON.parse(json.replace(/'/g, '"'));
-        console.log(parsed)
-        for (var key in parsed) {
-          if (parsed.hasOwnProperty(key)) {
-            _this.salones.key = parsed[key];
-          }
-        }
+        _this.salones = parsed;
         for (var key in _this.salones) {
           const element = _this.salones[key];
-          console.log(element)
           var tiempo = darTiempo(element.Tiempo);
-          var time = { salon: key, tiempo: tiempo };
+          var time = { salon: key.replace("_", ""), tiempo: tiempo };
           _this.tiempos.push(time);
         }
       })
-
       .then(res => {
-        console.log("ACABÓ");
-        _this.isLoading = false;
+        fetch(
+          "https://raw.githubusercontent.com/El-Kabs/senecaio/master/Back/Sobrecupo/calendario.json",
+          {
+            method: "GET"
+          }
+        )
+          .then(res => res.text())
+          .then(json => {
+            const parsed = JSON.parse(json.replace(/'/g, '"'));
+            let salonesAuxB = _this.salones;
+            for (var key in parsed) {
+              if (parsed.hasOwnProperty(key)) {
+                salonesAuxB[key] = parsed[key];
+              }
+            }
+
+            for (var key in parsed) {
+              const element = parsed[key];
+              console.log(key)
+              var tiempo = darTiempoRestante(element, key);
+              var time = { salon: key.replace("_", ""), tiempo: tiempo };
+              _this.tiempos.push(time);
+            }
+          })
+          .then(res => {
+            var prefixx = [];
+            for (var key in _this.salones) {
+              let prefijo = key.split("_")[0];
+              if((prefijo.length<=4) || (prefijo.startsWith("LIGA"))){
+                if(prefijo.startsWith("F")){
+                  prefixx.push("F")
+                }
+                else{
+                  prefixx.push(prefijo);
+                }
+              }
+            }
+            let prefixUnique = [...new Set(prefixx)];
+            _this.prefix = prefixUnique
+            _this.isLoading = false;
+          });
       });
 
     setInterval(function() {
@@ -182,4 +233,29 @@ a {
   margin-right: 5%;
   margin-bottom: 25px;
 }
+.a-icon {
+  outline: none;
+  text-decoration: none !important;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.a-icon i {
+  font-size: 18px;
+}
+
+.dropdown{
+  color:black;
+  display: inline!important;
+  font-family: "Nunito", sans-serif !important;
+  font-size: 13px;
+}
+
+.itemDrop{
+  font-weight: bold;
+  padding-top: 2px!important;
+  display: inline!important;
+}
+
 </style>

@@ -71,7 +71,7 @@ export function checkFechas(fechasMirar, fechasEvents) {
       if (
         !(
           moment(fechasMirar[indexb].start) >=
-            moment(fechasEvents[index].end) ||
+          moment(fechasEvents[index].end) ||
           moment(fechasMirar[indexb].end) <= moment(fechasEvents[index].start)
         )
       ) {
@@ -86,7 +86,7 @@ export function removeDuplicates(arr) {
   let unique = [...new Set(arr)];
   arr = unique;
   var dups = [];
-  var arrb = arr.filter(function(el) {
+  var arrb = arr.filter(function (el) {
     if (dups.indexOf(el.nrc) == -1) {
       dups.push(el.nrc);
       return true;
@@ -97,19 +97,93 @@ export function removeDuplicates(arr) {
 }
 
 export function darTiempo(tiempo) {
-    if (tiempo === "Disponible") {
-      return 0;
-    } else {
-      tiempo = parseInt(tiempo.split(" Minutos")[0]);
-      return tiempo
+  if (tiempo === "Disponible") {
+    return 0;
+  } else {
+    tiempo = parseInt(tiempo.split(" Minutos")[0]);
+    return tiempo
+  }
+}
+
+function esDia(diaActual, clase){
+  var retorno = false
+  if((diaActual===1) && (clase['l']!==null)){
+    return true
+  }
+  else if((diaActual===2) && (clase['m']!==null)){
+    return true
+  }
+  else if((diaActual===3) && (clase['i']!==null)){
+    return true
+  }
+  else if((diaActual===4) && (clase['j']!==null)){
+    return true
+  }
+  else if((diaActual===5) && (clase['v']!==null)){
+    return true
+  }
+  else if((diaActual===6) && (clase['s']!==null)){
+    return true
+  }
+  
+}
+
+function comparacion(clases){
+
+  var hora = new Date().getHours() +''+ new Date().getMinutes()
+
+  clases.sort(function(a,b){
+    if (a.time_ini < b.time_ini) {
+      return -1;
     }
+    if (a.time_ini > b.time_ini) {
+      return 1;
+    }
+    return 0;
+  })
+  for(var key in clases){
+    //var horaBienIni = clases[key]['time_ini'].splice(0,2)+':'+clases[key]['time_ini'].splice(2,clases[key]['time_ini'].splice(0,2).length)
+    //var horaBienFin = clases[key]['time_fin'].splice(0,2)+':'+clases[key]['time_fin'].splice(2,clases[key]['time_fin'].splice(0,2).length)
+    if(hora>clases[key]['time_ini'] && clases[key]['time_fin']>hora){
+      console.log(key)
+      console.log(clases)
+    }
+  }
+}
+
+export function darTiempoRestante(horarios, llave) {
+  var aComparar = []
+  horarios.forEach(element => {
+    for (var key in element) {
+      for (var keyB in element[key]) {
+        var salonComparar = element[key][keyB]['classroom'].replace('.', '')
+        if (salonComparar === llave) {
+          try {
+            var fecha = Date.now()
+            var diaSemana = new Date().getDay()
+            var fechaSalon = new Date(element[key][keyB]['date_ini']).getTime()
+            var fechaSalonFin = new Date(element[key][keyB]['date_fin']).getTime()
+            if (fecha > fechaSalon && fechaSalonFin > fecha) {
+              if(esDia(diaSemana, element[key][keyB])){
+                aComparar.push(element[key][keyB])
+              }
+            }
+          } catch (err) {
+            console.log(err)
+          }
+
+        }
+      }
+    }
+  })
+  comparacion(aComparar)
 }
 
 export function removeDuplicatesTitle(arr) {
   let unique = [...new Set(arr)];
   arr = unique;
   var dups = [];
-  var arrb = arr.filter(function(el) {
+  var arrb = arr.filter(function (el) {
     if (dups.indexOf(el.title + el.semestre) == -1) {
       dups.push(el.title + el.semestre);
       return true;
@@ -120,7 +194,7 @@ export function removeDuplicatesTitle(arr) {
 }
 
 export function removeNulls(arr) {
-  var filtered = arr.filter(function(el) {
+  var filtered = arr.filter(function (el) {
     return el != null;
   });
   return filtered;

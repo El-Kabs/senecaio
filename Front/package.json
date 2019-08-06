@@ -30,6 +30,7 @@
     "vue-clipboard2": "^0.2.1",
     "vue-cookies": "^1.5.12",
     "vue-drag-drop": "^1.1.4",
+    "vue-dropdowns": "^1.0.6",
     "vue-firebase": "^1.0.8",
     "vue-full-calendar": "^2.7.0",
     "vue-headful": "^2.0.1",
