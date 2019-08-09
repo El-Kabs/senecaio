@@ -105,34 +105,55 @@ export function darTiempo(tiempo) {
   }
 }
 
-function esDia(diaActual, clase){
+function esDia(diaActual, clase) {
   var retorno = false
-  if((diaActual===1) && (clase['l']!==null)){
+  if ((diaActual === 1) && (clase['l'] !== null)) {
     return true
   }
-  else if((diaActual===2) && (clase['m']!==null)){
+  else if ((diaActual === 2) && (clase['m'] !== null)) {
     return true
   }
-  else if((diaActual===3) && (clase['i']!==null)){
+  else if ((diaActual === 3) && (clase['i'] !== null)) {
     return true
   }
-  else if((diaActual===4) && (clase['j']!==null)){
+  else if ((diaActual === 4) && (clase['j'] !== null)) {
     return true
   }
-  else if((diaActual===5) && (clase['v']!==null)){
+  else if ((diaActual === 5) && (clase['v'] !== null)) {
     return true
   }
-  else if((diaActual===6) && (clase['s']!==null)){
+  else if ((diaActual === 6) && (clase['s'] !== null)) {
     return true
   }
-  
+
 }
 
-function comparacion(clases){
+function recursion(key, clases) {
+  if (clases[key++] !== undefined) {
 
-  var hora = new Date().getHours() +''+ new Date().getMinutes()
+  }
+}
 
-  clases.sort(function(a,b){
+function comparacion(clases) {
+
+  var hora = ''
+  if (new Date().getMinutes() < 10) {
+    hora = new Date().getHours() + '0' + new Date().getMinutes()
+
+  }
+  else {
+    hora = new Date().getHours() + '' + new Date().getMinutes()
+  }
+
+  var horaN = hora.substr(0, 2) + ':' + hora.substr(2, hora.length)
+
+  var minutos = horaN.split(':')[1]
+  var horas = horaN.split(':')[0]
+  var horaFinalF = new Date()
+  horaFinalF.setHours(horas)
+  horaFinalF.setMinutes(minutos)
+
+  clases.sort(function (a, b) {
     if (a.time_ini < b.time_ini) {
       return -1;
     }
@@ -141,12 +162,30 @@ function comparacion(clases){
     }
     return 0;
   })
-  for(var key in clases){
-    //var horaBienIni = clases[key]['time_ini'].splice(0,2)+':'+clases[key]['time_ini'].splice(2,clases[key]['time_ini'].splice(0,2).length)
-    //var horaBienFin = clases[key]['time_fin'].splice(0,2)+':'+clases[key]['time_fin'].splice(2,clases[key]['time_fin'].splice(0,2).length)
-    if(hora>clases[key]['time_ini'] && clases[key]['time_fin']>hora){
-      console.log(key)
-      console.log(clases)
+  for (var key in clases) {
+    try {
+      var horaBienFin = clases[key]['time_fin'].toString().substr(0, 2) + ':' + clases[key]['time_fin'].toString().substr(2, clases[key]['time_fin'].toString().length)
+      var minutosClase = horaBienFin.split(':')[1]
+      var horasClase = horaBienFin.split(':')[0]
+      var horaBienFinal = new Date()
+      horaBienFinal.setHours(horasClase)
+      horaBienFinal.setMinutes(minutosClase)
+      if (hora > clases[key]['time_ini'] && clases[key]['time_fin'] > hora) {
+        console.log(clases[key])
+        return parseInt((Math.abs(horaBienFinal - horaFinalF) / 36e5) * 60)
+      }
+      else if (hora > clases[key]['time_fin'] && clases[key++]['time_ini'] > hora) {
+        var horaBienFinB = clases[key++]['time_fin'].toString().substr(0, 2) + ':' + clases[key++]['time_fin'].toString().substr(2, clases[key++]['time_fin'].toString().length)
+        var minutosClaseB = horaBienFinB.split(':')[1]
+        var horasClaseB = horaBienFinB.split(':')[0]
+        var horaBienFinalB = new Date()
+        horaBienFinalB.setHours(horasClaseB)
+        horaBienFinalB.setMinutes(minutosClaseB)
+        return parseInt((Math.abs(horaBienFinalB - horaFinalF) / 36e5) * 60)
+      }
+    }
+    catch (err) {
+      console.log(err)
     }
   }
 }
@@ -164,7 +203,7 @@ export function darTiempoRestante(horarios, llave) {
             var fechaSalon = new Date(element[key][keyB]['date_ini']).getTime()
             var fechaSalonFin = new Date(element[key][keyB]['date_fin']).getTime()
             if (fecha > fechaSalon && fechaSalonFin > fecha) {
-              if(esDia(diaSemana, element[key][keyB])){
+              if (esDia(diaSemana, element[key][keyB])) {
                 aComparar.push(element[key][keyB])
               }
             }
@@ -176,7 +215,7 @@ export function darTiempoRestante(horarios, llave) {
       }
     }
   })
-  comparacion(aComparar)
+  return comparacion(aComparar)
 }
 
 export function removeDuplicatesTitle(arr) {

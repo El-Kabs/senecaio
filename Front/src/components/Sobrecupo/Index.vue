@@ -163,6 +163,7 @@ export default {
               const element = parsed[key];
               console.log(key)
               var tiempo = darTiempoRestante(element, key);
+              console.log(tiempo)
               var time = { salon: key.replace("_", ""), tiempo: tiempo };
               _this.tiempos.push(time);
             }
