@@ -198,7 +198,7 @@ export default {
         element.tiempo = tiempo;
         _this.tiempos[index] = element;
       }
-    }, 10 * 1000);
+    }, 60 * 1000);
   }
 };
 </script>

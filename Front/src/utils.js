@@ -171,21 +171,31 @@ function comparacion(clases) {
       horaBienFinal.setHours(horasClase)
       horaBienFinal.setMinutes(minutosClase)
       if (hora > clases[key]['time_ini'] && clases[key]['time_fin'] > hora) {
-        console.log(clases[key])
         return parseInt((Math.abs(horaBienFinal - horaFinalF) / 36e5) * 60)
-      }
-      else if (hora > clases[key]['time_fin'] && clases[key++]['time_ini'] > hora) {
-        var horaBienFinB = clases[key++]['time_fin'].toString().substr(0, 2) + ':' + clases[key++]['time_fin'].toString().substr(2, clases[key++]['time_fin'].toString().length)
-        var minutosClaseB = horaBienFinB.split(':')[1]
-        var horasClaseB = horaBienFinB.split(':')[0]
-        var horaBienFinalB = new Date()
-        horaBienFinalB.setHours(horasClaseB)
-        horaBienFinalB.setMinutes(minutosClaseB)
-        return parseInt((Math.abs(horaBienFinalB - horaFinalF) / 36e5) * 60)
       }
     }
     catch (err) {
       console.log(err)
+      return 0
+    }
+  }
+  for (var key in clases) {
+    try {
+      var horaBienFin = clases[key]['time_fin'].toString().substr(0, 2) + ':' + clases[key]['time_fin'].toString().substr(2, clases[key]['time_fin'].toString().length)
+      var minutosClase = horaBienFin.split(':')[1]
+      var horasClase = horaBienFin.split(':')[0]
+      var horaBienFinal = new Date()
+      horaBienFinal.setHours(horasClase)
+      horaBienFinal.setMinutes(minutosClase)
+      var nKey = key + 1
+      if (hora > clases[key]['time_fin'] && clases[nKey]['time_ini'] > hora) {
+        console.log("CASO B")
+        return parseInt((Math.abs(horaBienFinal - horaFinalF) / 36e5) * 60)
+      }
+    }
+    catch (err) {
+      console.log(err)
+      return 0
     }
   }
 }
